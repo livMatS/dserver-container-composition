@@ -1,0 +1,95 @@
+version: '3'
+
+volumes:
+  mongodb_data: {}
+  postgres_data: {}
+
+services:
+  mongodb:
+    image: mongo:4.2.6
+    restart_policy: always
+    env_file:
+      - ./envs/production/mongodb
+    expose:
+      - 21017
+    volumes:
+      - mongodb_data:/data/db
+
+  postgres:
+    image: postgres:12.3
+    restart_policy: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./envs/production/postgres
+    expose:
+      - 5433
+
+  dtool_lookup_client:
+    build:
+      context: .
+      dockerfile: ./compose/production/dtool_lookup_client/Dockerfile
+    image: production_dtool_lookup_client
+    restart_policy: none
+    depends_on:
+      - sambaserver
+    command: /start
+
+  dtool_lookup_server:
+    build:
+      context: .
+      dockerfile: ./compose/production/dtool_lookup_server/Dockerfile
+    image: production_dtool_lookup_server
+    restart_policy: always
+    depends_on:
+      - mongodb
+      - postgres
+      - sambaserver
+      - ldap
+      - token_generator_ldap
+    env_file:
+      - ./envs/production/dtool_lookup_server
+    ports:
+      - "5000:5000"
+    command: /start
+    volumes:
+      - type: bind
+        source: ./keys/dtool_lookup_server
+        target: /run/secrets
+        read_only: True
+
+  token_generator_ldap:
+    build:
+      context: .
+      dockerfile: ./compose/production/token_generator_ldap/Dockerfile
+    image: production_token_generator_ldap
+    restart_policy: always
+    depends_on:
+      - ldap
+    env_file:
+      - ./envs/production/token_generator_ldap
+    ports:
+      - "5001:5001"
+    command: /start
+    volumes:
+      - type: bind
+        source: ./keys/token_generator_ldap
+        target: /run/secrets
+        read_only: True
+
+  ldap:
+    image: bitnami/openldap:latest
+    restart_policy: always
+    env_file:
+      - ./envs/production/ldap
+    expose:
+      - "1389"
+
+  sambaserver:
+    # test with smbclient -U guest -W WORKGROUP //localhost/sambashare
+    image: dperson/samba:latest
+    restart_policy: always
+    command: -p -S -w WORKGROUP -s sambashare;/share;yes;no;yes
+    expose:
+      - "139"
+      - "445"

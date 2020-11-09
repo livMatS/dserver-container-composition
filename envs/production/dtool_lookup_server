@@ -1,0 +1,16 @@
+FLASK_APP=dtool_lookup_server
+
+SQLALCHEMY_DATABASE_URI=postgres://testing_user:testing_password@postgres:5432/dtool
+
+MONGO_URI=mongodb://mongodb:27017/dtool_info
+
+JWT_PUBLIC_KEY_FILE=/run/secrets/jwt_key.pub
+JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
+
+SSL_CERT_FILE=/run/secrets/tls_cert.pem
+SSL_KEY_FILE=/run/secrets/tls_key.pem
+
+DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
+DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=False
+DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
+DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]

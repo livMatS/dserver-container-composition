@@ -1,0 +1,9 @@
+#!/bin/bash -x
+set -x
+
+# create subfolder on share
+smbclient -U guest -c "mkdir dtool" -N -W WORKGROUP //sambaserver/sambashare
+
+# place test dataset on share
+dtool cp /share/dtool/simple_test_dataset smb://test-share
+exit $?

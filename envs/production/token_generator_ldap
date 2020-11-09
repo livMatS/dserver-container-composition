@@ -1,0 +1,10 @@
+FLASK_APP=app.py
+FLASK_CONFIG_FILE=production.cfg
+
+JWT_PUBLIC_KEY_FILE=/run/secrets/jwt_key.pub
+JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
+
+JWT_ACCESS_TOKEN_EXPIRES=3600
+
+SSL_CERT_FILE=/run/secrets/tls_cert.pem
+SSL_KEY_FILE=/run/secrets/tls_key.pem

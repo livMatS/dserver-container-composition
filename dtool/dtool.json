@@ -1,0 +1,9 @@
+{
+  "DTOOL_SMB_SERVER_NAME_test-share": "sambaserver",
+  "DTOOL_SMB_SERVER_PORT_test-share": 445,
+  "DTOOL_SMB_USERNAME_test-share": "guest",
+  "DTOOL_SMB_PASSWORD_test-share": "a-guest-needs-no-password",
+  "DTOOL_SMB_DOMAIN_test-share": "WORKGROUP",
+  "DTOOL_SMB_SERVICE_NAME_test-share": "sambashare",
+  "DTOOL_SMB_PATH_test-share": "dtool"
+}

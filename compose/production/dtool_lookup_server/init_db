@@ -1,0 +1,22 @@
+#!/bin/bash -x
+
+# Migrations
+flask db upgrade
+if [ $? -ne 0 ]
+then
+   exit $?
+fi
+
+
+flask db migrate
+if [ $? -ne 0 ]
+then
+   exit $?
+fi
+
+# Add dtool URIs
+flask base_uri add smb://test-share
+
+flask user add testuser
+flask user search_permission testuser smb://test-share
+exit 0
