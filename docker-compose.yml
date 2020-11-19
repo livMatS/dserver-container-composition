@@ -27,7 +27,7 @@ services:
 
   dtool_lookup_client:
     image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
-    restart: none
+    restart: on-failure
     depends_on:
       - sambaserver
     command: /start
