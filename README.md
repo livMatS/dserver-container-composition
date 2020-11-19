@@ -4,7 +4,7 @@ Run
 
     cd keys && bash ./generate.sh && bash ./generate_jwt_key.sh
 
-to generate tls/ssl and jwt keys, then build and run with
+to generate tls/ssl and jwt keys, then run with
 
     podman-compose up -d
 

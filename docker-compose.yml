@@ -6,8 +6,8 @@ volumes:
 
 services:
   mongodb:
-    image: mongo:4.2.6
-    restart_policy: always
+    image: mongo:${MONGO_CONTAINER_IMAGE_VERSION}
+    restart: always
     env_file:
       - ./envs/production/mongodb
     expose:
@@ -16,8 +16,8 @@ services:
       - mongodb_data:/data/db
 
   postgres:
-    image: postgres:12.3
-    restart_policy: always
+    image: postgres:${POSTGRES_CONTAINER_IMAGE_VERSION}
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
@@ -27,16 +27,14 @@ services:
 
   dtool_lookup_client:
     image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
-    restart_policy:
-      condition: none
+    restart: none
     depends_on:
       - sambaserver
     command: /start
 
   dtool_lookup_server:
     image: jotelha/dtool-lookup-server:${DTOOL_LOOKUP_SERVER_CONTAINER_IMAGE_VERSION}
-    restart_policy:
-      condition: on-failure
+    restart: always
     depends_on:
       - mongodb
       - postgres
@@ -56,8 +54,7 @@ services:
 
   token_generator_ldap:
     image: jotelha/dtool-token-generator-ldap:${DTOOL_TOKEN_GENERATOR_LDAP_CONTAINER_IMAGE_VERSION}
-    restart_policy: 
-      condition: on-failuere
+    restart: always
     depends_on:
       - ldap
     env_file:
@@ -72,17 +69,16 @@ services:
         read_only: True
 
   ldap:
-    image: bitnami/openldap:latest
-    restart_policy: always
+    image: bitnami/openldap:${OPENLDAP_CONTAINER_IMAGE_VERSION}
+    restart: always
     env_file:
       - ./envs/production/ldap
     expose:
       - "1389"
 
   sambaserver:
-    # test with smbclient -U guest -W WORKGROUP //localhost/sambashare
-    image: dperson/samba:latest
-    restart_policy: always
+    image: dperson/samba:${SAMBA_CONTAINER_IMAGE_VERSION}
+    restart: always
     command: -p -S -w WORKGROUP -s sambashare;/share;yes;no;yes
     expose:
       - "139"

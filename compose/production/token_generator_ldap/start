@@ -1,4 +1,0 @@
-#!/bin/bash -x
-set -euxo pipefail
-
-gunicorn --bind=0.0.0.0:5001 wsgi:app
