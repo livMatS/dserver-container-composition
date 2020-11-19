@@ -1,0 +1,37 @@
+#!/bin/bash -x
+
+# The ownly allowed failure is having the base uri or permission already registered earlier.
+# TODO: do this from a Python script to properly distinguish between critical and expected exceptions.
+
+# Add dtool URIs
+out=$(flask base_uri add smb://test-share 2>&1)
+if [ $? -ne 0 ]; then
+  echo $out | grep -E 'Base URI .* already registered' > /dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo $out >2
+    exit 1
+  fi
+fi
+echo $out
+
+out=$(flask user add testuser 2>&1)
+if [ $? -ne 0 ]; then
+  echo $out | grep -E 'User .* already registered' > /dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo $out >2
+    exit 1
+  fi
+fi
+echo $out
+
+out=$(flask user search_permission testuser smb://test-share 2>&1)
+if [ $? -ne 0 ]; then
+  echo $out | grep -E 'User .* already has search permissions' > /dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo $out >2
+    exit 1
+  fi
+fi
+echo $out
+
+exit 0

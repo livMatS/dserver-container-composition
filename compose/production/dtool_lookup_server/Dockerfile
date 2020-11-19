@@ -7,8 +7,8 @@ RUN apt-get --yes update && \
     pip install gunicorn psycopg2 && \
     pip install importlib_metadata  && \
     pip install dtool-lookup-server==0.15.0 \
-                dtool-lookup-server-dependency-graph-plugin==0.1.3 \
-                dtool-lookup-server-direct-mongo-plugin==0.1.2 \
+                dtool-lookup-server-dependency-graph-plugin==0.1.4 \
+                dtool-lookup-server-direct-mongo-plugin==0.1.3 \
                 dtool-smb && \
     apt-get remove --purge --autoremove -y gcc && \
     rm -rf /var/lib/apt/lists/*
@@ -24,6 +24,7 @@ COPY dtool/dtool.json /root/.config/dtool
 COPY compose/production/dtool_lookup_server/wsgi.py /app
 COPY compose/production/dtool_lookup_server/start /start
 COPY compose/production/dtool_lookup_server/init_db /init_db
+COPY compose/production/dtool_lookup_server/register_users_and_base_uris /register_users_and_base_uris
 COPY compose/production/dtool_lookup_server/refresh_index /refresh_index
 COPY compose/production/dtool_lookup_server/refresh_index /etc/cron.daily/refresh_index
 COPY compose/production/dtool_lookup_server/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -34,9 +35,9 @@ COPY compose/production/dtool_lookup_server/supervisord.conf /etc/supervisor/con
 # Instead, actual values are read at container launch (see start file):
 COPY envs/production/dtool_lookup_server /refresh_index.envs.reference
 RUN chmod 0744 /etc/cron.daily/refresh_index
-
-RUN chmod +x /refresh_index
 RUN chmod +x /init_db
+RUN chmod +x /register_users_and_base_uris
+RUN chmod +x /refresh_index
 RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 

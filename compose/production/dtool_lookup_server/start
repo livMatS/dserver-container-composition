@@ -12,6 +12,4 @@ cat $JWT_PUBLIC_KEY_FILE
 # Initialization
 flask db init
 
-/init_db
-
 supervisord

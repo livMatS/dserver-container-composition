@@ -1,8 +1,6 @@
 #!/bin/bash -x
-set -euxo pipefail
 
-exec > /var/log/refresh_index.log
-exec 2>&1
+exec &> >(tee -a /var/log/refresh_index.log)
 
 . /refresh_index.envs
 export $(cut -d' ' -f3 /refresh_index.envs | cut -d= -f1)
@@ -13,3 +11,4 @@ flask base_uri list
 
 # Build the index of the data on the URI
 flask base_uri index smb://test-share
+exit 0
