@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 volumes:
   mongodb_data: {}
@@ -26,21 +26,17 @@ services:
       - 5433
 
   dtool_lookup_client:
-    build:
-      context: .
-      dockerfile: ./compose/production/dtool_lookup_client/Dockerfile
-    image: jotelha/dtool-lookup-client:latest
-    restart_policy: none
+    image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
+    restart_policy:
+      condition: none
     depends_on:
       - sambaserver
     command: /start
 
   dtool_lookup_server:
-    build:
-      context: .
-      dockerfile: ./compose/production/dtool_lookup_server/Dockerfile
-    image: jotelha/dtool-lookup-server:latest
-    restart_policy: always
+    image: jotelha/dtool-lookup-server:${DTOOL_LOOKUP_SERVER_CONTAINER_IMAGE_VERSION}
+    restart_policy:
+      condition: on-failure
     depends_on:
       - mongodb
       - postgres
@@ -59,11 +55,9 @@ services:
         read_only: True
 
   token_generator_ldap:
-    build:
-      context: .
-      dockerfile: ./compose/production/token_generator_ldap/Dockerfile
-    image: jotelha/dtool-token-generator-ldap:latest
-    restart_policy: always
+    image: jotelha/dtool-token-generator-ldap:${DTOOL_TOKEN_GENERATOR_LDAP_CONTAINER_IMAGE_VERSION}
+    restart_policy: 
+      condition: on-failuere
     depends_on:
       - ldap
     env_file:
