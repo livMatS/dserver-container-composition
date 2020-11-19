@@ -29,7 +29,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/dtool_lookup_client/Dockerfile
-    image: production_dtool_lookup_client
+    image: jotelha/dtool-lookup-client:latest
     restart_policy: none
     depends_on:
       - sambaserver
@@ -39,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/dtool_lookup_server/Dockerfile
-    image: production_dtool_lookup_server
+    image: jotelha/dtool-lookup-server:latest
     restart_policy: always
     depends_on:
       - mongodb
@@ -62,7 +62,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/token_generator_ldap/Dockerfile
-    image: production_token_generator_ldap
+    image: jotelha/dtool-token-generator-ldap:latest
     restart_policy: always
     depends_on:
       - ldap
