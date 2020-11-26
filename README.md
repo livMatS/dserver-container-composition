@@ -11,7 +11,10 @@ to generate tls/ssl and jwt keys, then run with
 
 # Usage
 
-On launch, a test dataset is placed on the smb share.
+On launch, a test dataset is placed on the smb share. It might be necessary to manually refresh the index to 
+register this testing dataset after the first launch, i.e.
+
+    podman exec -it dtool-lookup-server-container-composition_dtool_lookup_server_1 /refresh_index
 
 After pod up and images available, relaunch interactive session for manual
 testing with
@@ -21,7 +24,7 @@ testing with
 or run dtool commands directly, i.e. via
 
 ```console
-$ podman run -it --pod dtool-lookup-server-container-composition dtool-lookup-client dtool query '{}'
+$ podman run -it --pod dtool-lookup-server-container-composition jotelha/dtool-lookup-client dtool query '{}'
 [
   {
     "base_uri": "smb://test-share",
@@ -36,6 +39,14 @@ $ podman run -it --pod dtool-lookup-server-container-composition dtool-lookup-cl
     "uuid": "1a1f9fad-8589-413e-9602-5bbd66bfe675"
   }
 ]
+```
+
+or
+
+```console
+$ podman run -it --pod dtool-lookup-server-container-composition jotelha/dtool-lookup-client dtool ls smb://test-share
+simple_test_dataset
+  smb://test-share/1a1f9fad-8589-413e-9602-5bbd66bfe675
 ```
 
 From within ldap container, use
