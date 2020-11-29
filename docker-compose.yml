@@ -83,3 +83,5 @@ services:
     expose:
       - "139"
       - "445"
+    ports:
+      - "4445:445"
