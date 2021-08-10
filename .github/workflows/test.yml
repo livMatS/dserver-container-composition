@@ -5,8 +5,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
 
     steps:
     - name: Git checkout this
@@ -14,6 +12,13 @@ jobs:
 
     - name: Pull container images and prepare composition
       run: |
+        # the following line allows testing locally with act (https://github.com/nektos/act),
+        # i.e. by running
+        #   act -W .github/workflows/test.yml --bind 
+        # from within this repository's root directory (see README for more information).
+        sudo chown runner:docker /var/run/docker.sock
+        # see https://github.com/nektos/act/issues/724#issuecomment-855390956
+
         docker-compose pull 
         echo "docker image ls"
         docker image ls
@@ -30,20 +35,27 @@ jobs:
        
         echo "docker container ls --all"
         docker container ls --all
+
         echo "docker volume ls"
         docker volume ls
         
         echo "docker images"
         docker-compose images
+
         echo "dtool lookup server log"
         docker-compose logs dtool_lookup_server
         
         echo "dtool lookup client log"
         docker-compose logs dtool_lookup_client
+
         echo "dtool ls smb://test-share"
         docker-compose run dtool_lookup_client dtool ls smb://test-share
         
         echo "explicitly re-evoke dataset indexing"
         docker-compose exec -T dtool_lookup_server /refresh_index
+
         echo "dtool query '{}'"
         docker-compose run dtool_lookup_client dtool query '{}'
+
+        echo "docker-compose down --volumes"
+        docker-compose down --volumes --timeout 30
