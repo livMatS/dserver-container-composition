@@ -1,6 +1,6 @@
 FLASK_APP=dtool_lookup_server
 
-SQLALCHEMY_DATABASE_URI=postgres://testing_user:testing_password@postgres:5432/dtool
+SQLALCHEMY_DATABASE_URI=postgresql://testing_user:testing_password@postgres:5432/dtool
 
 MONGO_URI=mongodb://mongodb:27017/dtool_info
 
