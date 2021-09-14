@@ -39,6 +39,7 @@ services:
       - mongodb
       - postgres
       - sambaserver
+      - s3server
       - ldap
       - token_generator_ldap
     env_file:
@@ -85,3 +86,37 @@ services:
       - "445"
     ports:
       - "4445:445"
+
+  s3server:
+    image: minio/minio:${MINIO_CONTAINER_IMAGE_VERSION}
+    restart: always
+    env_file:
+      - ./envs/production/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    secrets:
+      - source: minio_access_key
+        target: access_key
+      - source: minio_secret_key
+        target: secret_key
+
+  # initialize s3-compatible minio server 
+  s3server_mc:
+    image: minio/mc:${MINIO_MC_CONTAINER_IMAGE_VERSION}
+    restart: no
+    depends_on:
+      - s3server
+    entrypoint: 
+      - bash
+      - -c
+      - |
+        mc config host add s3server http://s3server:9000 $(<secrets/access_key) $(<secrets/secret_key) &&
+        mc admin user add s3server testuser_access_key testuser_secret_key &&
+        mc mb s3server/test-bucket
+
+secrets:
+  minio_access_key:
+    file: secrets/minio/access_key
+  minio_secret_key:
+    file: secrets/minio/secret_key
