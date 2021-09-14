@@ -29,7 +29,12 @@ services:
     image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
     restart: on-failure
     depends_on:
-      - sambaserver
+      sambaserver:
+        condition: service_healthy
+      s3server:
+        condition: service_healthy
+      s3server_init:
+        condition: service_started
     command: /start
 
   dtool_lookup_server:
