@@ -36,12 +36,18 @@ services:
     image: jotelha/dtool-lookup-server:${DTOOL_LOOKUP_SERVER_CONTAINER_IMAGE_VERSION}
     restart: always
     depends_on:
-      - mongodb
-      - postgres
-      - sambaserver
-      - s3server
-      - ldap
-      - token_generator_ldap
+      mongodb:
+        condition: service_started
+      postgres:
+        condition: service_started
+      sambaserver:
+        condition: service_started
+      s3server:
+        condition: service_healthy
+      ldap:
+        condition: service_started
+      token_generator_ldap:
+        condition: service_started
     env_file:
       - ./envs/production/dtool_lookup_server
     ports:
@@ -89,6 +95,7 @@ services:
 
   s3server:
     image: minio/minio:${MINIO_CONTAINER_IMAGE_VERSION}
+    command: server /data --console-address ":9001"
     restart: always
     env_file:
       - ./envs/production/minio
@@ -100,20 +107,29 @@ services:
         target: access_key
       - source: minio_secret_key
         target: secret_key
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
 
   # initialize s3-compatible minio server 
-  s3server_mc:
-    image: minio/mc:${MINIO_MC_CONTAINER_IMAGE_VERSION}
-    restart: no
+  s3server_init:
+    build:
+      context: .
+      dockerfile: ./compose/minio-init/Dockerfile
+      args:
+        version: ${MINIO_MC_CONTAINER_IMAGE_VERSION}
+    image: minio-init:${MINIO_MC_CONTAINER_IMAGE_VERSION}
+    restart: "on-failure"
     depends_on:
-      - s3server
-    entrypoint: 
-      - bash
-      - -c
-      - |
-        mc config host add s3server http://s3server:9000 $(<secrets/access_key) $(<secrets/secret_key) &&
-        mc admin user add s3server testuser_access_key testuser_secret_key &&
-        mc mb s3server/test-bucket
+      s3server:
+        condition: service_healthy
+    secrets:
+      - source: minio_access_key
+        target: access_key
+      - source: minio_secret_key
+        target: secret_key
 
 secrets:
   minio_access_key:
