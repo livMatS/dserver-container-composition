@@ -50,6 +50,9 @@ jobs:
 
         echo "dtool ls smb://test-share"
         docker-compose run dtool_lookup_client dtool ls smb://test-share
+
+        echo "dtool ls s3://test-bucket"
+        docker-compose run dtool_lookup_client dtool ls s3://test-bucket
         
         echo "explicitly re-evoke dataset indexing"
         docker-compose exec -T dtool_lookup_server /refresh_index
