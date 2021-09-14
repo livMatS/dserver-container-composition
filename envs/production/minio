@@ -1,0 +1,2 @@
+MINIO_ROOT_USER_FILE=/run/secrets/access_key
+MINIO_ROOT_PASSWORD_FILE=/run/secrets/secret_key
