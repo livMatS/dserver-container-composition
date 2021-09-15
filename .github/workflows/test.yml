@@ -31,7 +31,7 @@ jobs:
       run: |
         
         docker-compose -p dtool-lookup-server-container-composition up -d 
-        sleep 10
+        sleep 60 # TODO: wait for all services to be ready and healthy
        
         echo "docker container ls --all"
         docker container ls --all
