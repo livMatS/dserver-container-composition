@@ -30,7 +30,7 @@ jobs:
     - name: Launch dtool lookup server
       run: |
         
-        docker-compose -p dtool-lookup-server-container-composition up -d --no-build  # will pull missing images with build command in compose file
+        docker-compose -p dtool-lookup-server-container-composition up -d 
         sleep 10
        
         echo "docker container ls --all"
