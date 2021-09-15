@@ -24,7 +24,7 @@ cd ..
 
 docker-compose -p dtool-lookup-server-container-composition up -d
 
-sleep 60 # TODO: mechanism to wait for containers to be ready
+sleep 10 # TODO: mechanism to wait for containers to be ready
 
 echo "docker container ls --all"
 docker container ls --all
@@ -41,17 +41,28 @@ docker-compose logs dtool_lookup_server
 echo "dtool lookup client log"
 docker-compose logs dtool_lookup_client
 
+# create dtool directory on samba share
+echo "smbclient -U guest -c "mkdir dtool" -N -W WORKGROUP //sambaserver/sambashare"
+docker-compose run --entrypoint smbclient dtool_lookup_client -U guest -c "mkdir dtool" -N -W WORKGROUP //sambaserver/sambashare
+
+# place test datasets on storage infrastructure
+echo "dtool cp tests/dtool/simple_test_dataset smb://test-share"
+docker-compose run -v $(pwd)/tests:/tests dtool_lookup_client cp /tests/dtool/simple_test_dataset smb://test-share
+
+echo "dtool cp tests/dtool/simple_test_dataset s3://test-bucket"
+docker-compose run -v $(pwd)/tests:/tests dtool_lookup_client cp /tests/dtool/simple_test_dataset s3://test-bucket
+
 echo "dtool ls smb://test-share"
-docker-compose run dtool_lookup_client dtool ls smb://test-share
+docker-compose run dtool_lookup_client ls smb://test-share
 
 echo "dtool ls s3://test-bucket"
-docker-compose run dtool_lookup_client dtool ls s3://test-bucket
+docker-compose run dtool_lookup_client ls s3://test-bucket
 
 echo "explicitly re-evoke dataset indexing"
 docker-compose exec -T dtool_lookup_server /refresh_index
 
 echo "dtool query '{}'"
-docker-compose run dtool_lookup_client dtool query '{}'
+docker-compose run dtool_lookup_client query '{}'
 
 # echo "docker-compose down --volumes"
 # docker-compose down --volumes --timeout 30
