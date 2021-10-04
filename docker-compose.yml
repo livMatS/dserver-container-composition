@@ -8,10 +8,6 @@ services:
   mongodb:
     image: mongo:${MONGO_CONTAINER_IMAGE_VERSION}
     restart: always
-    env_file:
-      - ./envs/production/mongodb
-    expose:
-      - 21017
     volumes:
       - mongodb_data:/data/db
 
@@ -20,22 +16,6 @@ services:
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - ./envs/production/postgres
-    expose:
-      - 5433
-
-  dtool_lookup_client:
-    image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
-    restart: on-failure
-    depends_on:
-      sambaserver:
-        condition: service_healthy
-      s3server:
-        condition: service_healthy
-      s3server_init:
-        condition: service_started
-    command: /start
 
   dtool_lookup_server:
     image: jotelha/dtool-lookup-server:${DTOOL_LOOKUP_SERVER_CONTAINER_IMAGE_VERSION}
@@ -45,18 +25,8 @@ services:
         condition: service_started
       postgres:
         condition: service_started
-      sambaserver:
-        condition: service_started
-      s3server:
-        condition: service_healthy
-      ldap:
-        condition: service_started
       token_generator_ldap:
         condition: service_started
-    env_file:
-      - ./envs/production/dtool_lookup_server
-    ports:
-      - "5000:5000"
     command: /start
     volumes:
       - type: bind
@@ -67,77 +37,9 @@ services:
   token_generator_ldap:
     image: jotelha/dtool-token-generator-ldap:${DTOOL_TOKEN_GENERATOR_LDAP_CONTAINER_IMAGE_VERSION}
     restart: always
-    depends_on:
-      - ldap
-    env_file:
-      - ./envs/production/token_generator_ldap
-    ports:
-      - "5001:5001"
     command: /start
     volumes:
       - type: bind
         source: ./keys/token_generator_ldap
         target: /run/secrets
         read_only: True
-
-  ldap:
-    image: bitnami/openldap:${OPENLDAP_CONTAINER_IMAGE_VERSION}
-    restart: always
-    env_file:
-      - ./envs/production/ldap
-    expose:
-      - "1389"
-
-  sambaserver:
-    image: dperson/samba:${SAMBA_CONTAINER_IMAGE_VERSION}
-    restart: always
-    command: -p -S -w WORKGROUP -s sambashare;/share;yes;no;yes
-    expose:
-      - "139"
-      - "445"
-    ports:
-      - "4445:445"
-
-  s3server:
-    image: minio/minio:${MINIO_CONTAINER_IMAGE_VERSION}
-    command: server /data --console-address ":9001"
-    restart: always
-    env_file:
-      - ./envs/production/minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    secrets:
-      - source: minio_access_key
-        target: access_key
-      - source: minio_secret_key
-        target: secret_key
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
-  # initialize s3-compatible minio server 
-  s3server_init:
-    build:
-      context: .
-      dockerfile: ./compose/minio-init/Dockerfile
-      args:
-        version: ${MINIO_MC_CONTAINER_IMAGE_VERSION}
-    image: minio-init:${MINIO_MC_CONTAINER_IMAGE_VERSION}
-    restart: "on-failure"
-    depends_on:
-      s3server:
-        condition: service_healthy
-    secrets:
-      - source: minio_access_key
-        target: access_key
-      - source: minio_secret_key
-        target: secret_key
-
-secrets:
-  minio_access_key:
-    file: secrets/minio/access_key
-  minio_secret_key:
-    file: secrets/minio/secret_key

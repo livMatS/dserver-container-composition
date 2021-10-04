@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mongodb:
+    env_file:
+      - ./envs/production/mongodb
+
+  postgres:
+    env_file:
+      - ./envs/production/postgres
+
+  dtool_lookup_server:
+    env_file:
+      - ./envs/production/dtool_lookup_server
+
+  token_generator_ldap:
+    env_file:
+      - ./envs/production/token_generator_ldap

@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mongodb:
+    expose:
+      - 21017
+
+  postgres:
+    expose:
+      - 5433
+
+  dtool_lookup_server:
+    ports:
+      - "5000:5000"
+
+  token_generator_ldap:
+    ports:
+      - "5001:5001"
