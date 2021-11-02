@@ -4,11 +4,13 @@ SQLALCHEMY_DATABASE_URI=postgresql://testing_user:testing_password@postgres:5432
 
 MONGO_URI=mongodb://mongodb:27017/dtool_info
 
+BIND_TO=0.0.0.0:5000
+
 JWT_PUBLIC_KEY_FILE=/run/secrets/jwt_key.pub
 JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
 
-SSL_CERT_FILE=/run/secrets/tls_cert.pem
-SSL_KEY_FILE=/run/secrets/tls_key.pem
+SSL_CERT_FILE=/certs/dtool-lookup-server.crt
+SSL_KEY_FILE=/certs/dtool-lookup-server.key
 
 DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
 DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=True
