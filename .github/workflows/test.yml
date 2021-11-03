@@ -22,9 +22,8 @@ jobs:
         docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml -f docker-compose.testing.yml pull 
         echo "docker image ls"
         docker image ls
-        echo "generate certs and keys"
+        echo "generate jwt key"
         cd keys
-        bash generate.sh
         bash generate_jwt_key.sh
 
     - name: Launch dtool lookup server
