@@ -20,11 +20,8 @@ docker-compose ${DOCKER_COMPOSE_OPTS} pull
 echo "docker image ls"
 docker image ls
 
-echo "generate certs and keys"
-cd keys
-bash generate.sh
-bash generate_jwt_key.sh
-cd ..
+echo "generate jwt key"
+cd keys && bash generate_jwt_key.sh && cd ..
 
 docker-compose ${DOCKER_COMPOSE_OPTS} -p dtool-lookup-server-container-composition up -d
 
