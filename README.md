@@ -27,7 +27,7 @@ commands accordingly.
 Run
 
 ```bash
-cd keys && bash ./generate.sh && bash ./generate_jwt_key.sh
+cd keys && bash ./generate_jwt_key.sh
 ```
 
 to generate tls/ssl and jwt keys, then run with
@@ -43,7 +43,6 @@ Several combinable docker-compose files are available as samples. To run a produ
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.alt-ports.yml up -d
 ```
-
 
 
 ## Usage

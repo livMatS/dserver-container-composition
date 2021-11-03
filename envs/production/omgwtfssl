@@ -1,0 +1,5 @@
+SSL_SUBJECT=dtool-lookup-server
+CA_SUBJECT=admin@dtool-lookup-server.provider
+SSL_KEY=/certs/dtool-lookup-server.key
+SSL_CSR=/certs/dtool-lookup-server.csr
+SSL_CERT=/certs/dtool-lookup-server.crt

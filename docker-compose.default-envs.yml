@@ -16,3 +16,7 @@ services:
   token_generator_ldap:
     env_file:
       - ./envs/production/token_generator_ldap
+
+  omgwtfssl:
+    env_file:
+      - ./envs/production/omgwtfssl
