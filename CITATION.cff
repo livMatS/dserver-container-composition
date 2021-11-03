@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Hörmann"
+  given-names: "Johannes Laurin"
+  orcid: "https://orcid.org/0000-0001-5867-695X"
+title: "dtool lookup server container composition"
+version: 0.3.0
+doi: 10.5281/zenodo.5594401
+date-released: 2021-10-23
+url: "https://github.com/jotelha/dtool-lookup-server-container-composition"
