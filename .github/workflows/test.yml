@@ -4,4 +4,4 @@ on: [push, pull_request]
 
 jobs:
   test:
-    uses: jotelha/dtool-framework-workflows/.github/workflows/dtool-lookup-server-container-composition-test.yml@22_reusable_composition_test_workflow
+    uses: jotelha/dtool-framework-workflows/.github/workflows/dtool-lookup-server-container-composition-test.yml@master
