@@ -7,19 +7,19 @@ volumes:
 
 services:
   mongodb:
-    image: mongo:${MONGO_CONTAINER_IMAGE_VERSION}
+    image: mongo:latest
     restart: always
     volumes:
       - mongodb_data:/data/db
 
   postgres:
-    image: postgres:${POSTGRES_CONTAINER_IMAGE_VERSION}
+    image: postgres:latest
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   dtool_lookup_server:
-    image: jotelha/dtool-lookup-server:${DTOOL_LOOKUP_SERVER_CONTAINER_IMAGE_VERSION}
+    image: jotelha/dtool-lookup-server:latest
     restart: always
     depends_on:
       mongodb:
@@ -42,7 +42,7 @@ services:
         read_only: True
 
   token_generator_ldap:
-    image: jotelha/dtool-token-generator-ldap:${DTOOL_TOKEN_GENERATOR_LDAP_CONTAINER_IMAGE_VERSION}
+    image: jotelha/dtool-token-generator-ldap:latest
     restart: always
     command: /start
     volumes:
@@ -56,7 +56,7 @@ services:
         read_only: True
 
   omgwtfssl:
-    image: paulczar/omgwtfssl
+    image: paulczar/omgwtfssl:latest
     restart: "no"
     volumes:
       - cert_data:/certs

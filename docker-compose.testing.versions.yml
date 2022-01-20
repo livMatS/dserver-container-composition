@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  dtool_lookup_client:
+    image: jotelha/dtool-lookup-client:0.4.0
+
+  ldap:
+    image: bitnami/openldap:2.4.56
+
+  sambaserver:
+    image: dperson/samba:latest
+
+  s3server:
+    image: minio/minio:latest

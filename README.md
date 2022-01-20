@@ -21,9 +21,6 @@ and template for provision. Components are
 
 ## Quick start
 
-**NOTE**: The following sections use `podman`. `docker` users will have to adapt
-commands accordingly.
-
 Run
 
 ```bash
@@ -44,8 +41,20 @@ Several combinable docker-compose files are available as samples. To run a produ
 docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.alt-ports.yml up -d
 ```
 
+## Pinned versions
+
+Two docker-compose override files are used for pinning versions on images. These versions are used in CI workflows. 
+Latest images used per default may not work. For pinning all images to these sversions, use
+
+docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
+               -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml \
+               -f docker-compose.testing.yml -f docker-compose.testing.versions.yml up -d
 
 ## Usage
+
+**NOTE**: The following sections use `podman`. `docker` users will have to adapt
+commands accordingly.
+
 
 On launch, a test dataset is placed on the smb share. It might be necessary to manually refresh the index to
 register this testing dataset after the first launch, i.e.
