@@ -4,7 +4,7 @@ version: '2'
 
 services:
   mongodb:
-    image: mongo:4.2.6
+    image: mongo:5.0.5
 
   postgres:
     image: postgres:12.3
