@@ -13,7 +13,7 @@ services:
     image: jotelha/dtool-lookup-server:0.3.0
 
   token_generator_ldap:
-    image: jotelha/dtool-token-generator-ldap:0.2.1
+    image: jotelha/dtool-token-generator-ldap:0.2.2
 
   omgwtfssl:
     image: paulczar/omgwtfssl:latest
