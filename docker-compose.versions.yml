@@ -7,7 +7,7 @@ services:
     image: mongo:5.0.5
 
   postgres:
-    image: postgres:12.9
+    image: postgres:14.1
 
   dtool_lookup_server:
     image: jotelha/dtool-lookup-server:0.3.0
