@@ -2,7 +2,7 @@ version: '2'
 
 services:
   dtool_lookup_client:
-    image: jotelha/dtool-lookup-client:${DTOOL_LOOKUP_CLIENT_CONTAINER_IMAGE_VERSION}
+    image: jotelha/dtool-lookup-client:latest
     restart: on-failure
     depends_on:
       sambaserver:
@@ -27,7 +27,7 @@ services:
       - ldap
 
   ldap:
-    image: bitnami/openldap:${OPENLDAP_CONTAINER_IMAGE_VERSION}
+    image: bitnami/openldap:latest
     restart: always
     env_file:
       - ./envs/production/ldap
@@ -35,7 +35,7 @@ services:
       - "1389"
 
   sambaserver:
-    image: dperson/samba:${SAMBA_CONTAINER_IMAGE_VERSION}
+    image: dperson/samba:latest
     restart: always
     command: -p -S -w WORKGROUP -s sambashare;/share;yes;no;yes
     expose:
@@ -45,7 +45,7 @@ services:
       - "4445:445"
 
   s3server:
-    image: minio/minio:${MINIO_CONTAINER_IMAGE_VERSION}
+    image: minio/minio:latest
     command: server /data --console-address ":9001"
     restart: always
     env_file:
@@ -70,8 +70,8 @@ services:
       context: .
       dockerfile: ./compose/minio-init/Dockerfile
       args:
-        version: ${MINIO_MC_CONTAINER_IMAGE_VERSION}
-    image: minio-init:${MINIO_MC_CONTAINER_IMAGE_VERSION}
+        version: latest
+    image: minio-init:latest
     restart: "on-failure"
     depends_on:
       s3server:
