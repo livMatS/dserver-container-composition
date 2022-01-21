@@ -5,7 +5,7 @@ services:
     image: jotelha/dtool-lookup-client:0.5.0
 
   ldap:
-    image: bitnami/openldap:2.6.0
+    image: bitnami/openldap:2.6.1
 
   sambaserver:
     image: dperson/samba:latest
