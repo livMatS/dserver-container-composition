@@ -27,18 +27,49 @@ Run
 cd keys && bash ./generate_jwt_key.sh
 ```
 
-to generate tls/ssl and jwt keys, then run with
+to generate tls/ssl and jwt keys, then source the preconfigured env file
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml -f docker-compose.testing.yml up -d
+source env.testing.rc
+```
+and run with
+
+```bash
+docker-compose ${DOCKER_COMPOSE_OPTS} up -d
 ```
 
 to bring up a fully functional dtool ecosystem composition.
 
-Several combinable docker-compose files are available as samples. To run a production system on alternative ports, use
+To initialize this server composition with test datasets on smb share and s3 bucket and index those once, run
+
+```bash
+bash tests/init.sh
+```
+
+## Stacking docker-compose files
+
+Several combinable docker-compose files are available as samples. 
+These are stacked and merged on the command line in the manner of
 
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.alt-ports.yml up -d
+```
+
+Inspect the `env*rc` files to understand how to use them. 
+
+
+```bash
+source env.testing.alt-ports.rc
+docker-compose ${DOCKER_COMPOSE_OPTS} up -d
+```
+
+will set up the docker-compose command line options accordingly in `${DOCKER_COMPOSE_OPTS}` and bring up a server on alternative ports.
+Make sure execute all docker-compose commands on the composition with the same set of parameters.
+
+To see the resulting compose configuration, use
+
+```bash
+docker-compose ${DOCKER_COMPOSE_OPTS} config
 ```
 
 ## Pinned versions
