@@ -8,4 +8,4 @@ on:
 
 jobs:
   test:
-    uses: jotelha/dtool-framework-workflows/.github/workflows/dtool-lookup-server-container-composition-test.yml@master
+    uses: livMatS/dtool-framework-workflows/.github/workflows/dtool-lookup-server-container-composition-test.yml@master
