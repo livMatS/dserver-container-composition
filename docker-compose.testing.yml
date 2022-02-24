@@ -2,6 +2,7 @@ version: '2'
 
 services:
   dtool_lookup_client:
+    hostname: dtool-lookup-client
     image: jotelha/dtool-lookup-client:latest
     restart: on-failure
     depends_on:
@@ -15,10 +16,6 @@ services:
 
   dtool_lookup_server:
     depends_on:
-      sambaserver:
-        condition: service_started
-      s3server:
-        condition: service_healthy
       ldap:
         condition: service_started
 
@@ -46,8 +43,12 @@ services:
 
   s3server:
     image: minio/minio:latest
-    command: server /data --console-address ":9001"
+    command: server /data --console-address ":9001" --certs-dir /certs/
     restart: always
+    depends_on:
+      omgwtfssl:
+        condition: service_started
+
     env_file:
       - ./envs/production/minio
     ports:
@@ -58,14 +59,33 @@ services:
         target: access_key
       - source: minio_secret_key
         target: secret_key
+    volumes:
+      - cert_data:/certs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3
+    # make host ports accessible from within container
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # initialize volumes
+  volume_init:
+    hostname: volume-init
+    build:
+      context: .
+      dockerfile: ./compose/volume-init/Dockerfile
+      args:
+        version: latest
+    image: volume-init:latest
+    restart: "on-failure"
+    volumes:
+      - cert_data:/certs
 
   # initialize s3-compatible minio server 
   s3server_init:
+    hostname: s3server-init
     build:
       context: .
       dockerfile: ./compose/minio-init/Dockerfile
@@ -81,6 +101,11 @@ services:
         target: access_key
       - source: minio_secret_key
         target: secret_key
+
+  omgwtfssl:
+    depends_on:
+      - volume_init
+
 
 secrets:
   minio_access_key:

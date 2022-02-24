@@ -18,7 +18,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # assign valid hostnames without undersore, see
+  # * https://github.com/minio/minio/issues/13025
+  # * https://github.com/docker/compose/issues/472
   dtool_lookup_server:
+    hostname: dtool-lookup-server
     image: jotelha/dtool-lookup-server:latest
     restart: always
     depends_on:
@@ -42,6 +46,7 @@ services:
         read_only: True
 
   token_generator_ldap:
+    hostname: token-generator-ldap
     image: jotelha/dtool-token-generator-ldap:latest
     restart: always
     command: /start
@@ -60,3 +65,4 @@ services:
     restart: "no"
     volumes:
       - cert_data:/certs
+

@@ -13,9 +13,6 @@ services:
   s3server:
     image: minio/minio:latest
 
-  s3server:
-    image: minio/minio:latest
-
   s3server_init:
     build:
       args:
