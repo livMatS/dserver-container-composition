@@ -12,7 +12,7 @@
 #
 set -euxo pipefail
 
-DOCKER_COMPOSE_OPTS=${DOCKER_COMPOSE_OPTS:-"-p dtool-lookup- server \
+DOCKER_COMPOSE_OPTS=${DOCKER_COMPOSE_OPTS:-"-p dtool-lookup-server \
                                            -f docker-compose.yml \
                                            -f docker-compose.versions.yml \
                                            -f docker-compose.default-envs.yml \
@@ -29,7 +29,7 @@ docker image ls
 echo "generate jwt key"
 cd keys && bash generate_jwt_key.sh && cd ..
 
-docker-compose ${DOCKER_COMPOSE_OPTS} -p dtool-lookup-server-container-composition up -d
+docker-compose ${DOCKER_COMPOSE_OPTS} up -d
 
 sleep 10 # TODO: mechanism to wait for containers to be ready
 

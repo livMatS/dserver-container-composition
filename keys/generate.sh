@@ -11,7 +11,7 @@ set -x
 temp_subj="/C=DE/ST=Some state/L=Some city/O=Some organization/OU=Some department/emailAddress=none@none"
 root_subj="$temp_subj"
 
-subj_suffix_arr=( "/CN=dtool_looktup_server" "/CN=token_generator_ldap" "/CN=mongodb" "/CN=ldap" )
+subj_suffix_arr=( "/CN=dtool-looktup-server" "/CN=token-generator-ldap" "/CN=mongodb" "/CN=ldap" )
 subdir_arr=( "dtool_lookup_server" "token_generator_ldap" "mongodb" "ldap" )
 
 PASSW=$(openssl rand -base64 32)
