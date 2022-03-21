@@ -2,7 +2,7 @@ version: '2'
 
 services:
   dtool_lookup_client:
-    image: jotelha/dtool-lookup-client:0.5.2
+    image: jotelha/dtool-lookup-client:0.5.3
 
   ldap:
     image: bitnami/openldap:2.6.1
