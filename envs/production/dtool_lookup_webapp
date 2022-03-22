@@ -1,2 +1,3 @@
-VUE_APP_DTOOL_LOOKUP_SERVER_URL="https://dtool-lookup-server:5000"
-VUE_APP_DTOOL_LOOKUP_SERVER_TOKEN_GENERATOR_URL="https://token-generator-ldap:5001/token"
+# Those are directly forwarded to web clients and must hence contain the fully qualified host names
+VUE_APP_DTOOL_LOOKUP_SERVER_URL="https://localhost:5000"
+VUE_APP_DTOOL_LOOKUP_SERVER_TOKEN_GENERATOR_URL="https://localhost:5001/token"
