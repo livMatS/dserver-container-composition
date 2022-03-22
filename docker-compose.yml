@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 volumes:
   mongodb_data: {}
@@ -32,7 +32,7 @@ services:
         condition: service_started
       token_generator_ldap:
         condition: service_started
-      omgwtfssl:
+      omgwtfssl-dtool-lookup-server:
         condition: service_started
     command: /start
     volumes:
@@ -60,9 +60,42 @@ services:
         target: /run/secrets
         read_only: True
 
-  omgwtfssl:
+  dtool_lookup_webapp:
+    build:
+      context: .
+      dockerfile: ./compose/dtool_lookup_webapp/Dockerfile
+    image: jotelha/dtool-lookup-webapp
+    restart: always
+    depends_on:
+      - dtool_lookup_server
+    command: nginx -g 'daemon off;'
+    volumes:
+      - type: volume
+        source: cert_data
+        target: /certs
+        read_only: True
+
+  omgwtfssl-dtool-lookup-server:
     image: paulczar/omgwtfssl:latest
     restart: "no"
+    volumes:
+      - cert_data:/certs
+
+  omgwtfssl-token-generator-ldap:
+    image: paulczar/omgwtfssl:latest
+    restart: "no"
+    depends_on:
+      omgwtfssl-dtool-lookup-server:
+        condition: service_completed_successfully
+    volumes:
+      - cert_data:/certs
+
+  omgwtfssl-dtool-lookup-webapp:
+    image: paulczar/omgwtfssl:latest
+    restart: "no"
+    depends_on:
+      omgwtfssl-dtool-lookup-server:
+        condition: service_completed_successfully
     volumes:
       - cert_data:/certs
 

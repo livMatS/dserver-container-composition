@@ -1,0 +1,9 @@
+CA_SUBJECT=admin@dtool-lookup-server.provider
+CA_KEY=ca-key.pem
+CA_CERT=CAs/ca.pem
+
+SSL_SUBJECT=s3server
+SSL_DNS=s3server
+SSL_KEY=s3server.key
+SSL_CSR=s3server.csr
+SSL_CERT=s3server.crt

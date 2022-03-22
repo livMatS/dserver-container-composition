@@ -84,6 +84,17 @@ docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
 
 ## Usage
 
+Per default, this composition provides self-signed SSL certificates.
+To access the dtool-lookup-webapp within this testing configuration via your browser,
+add the generated certificates as security exceptions to your browser.
+You will have to retrieve the certificates for the web app, the lookup server and the token genrator.
+If running locally in default configuration, retrieve the certificates from
+
+    https://localhost:5000
+    https://localhost:5001/token
+    https://localhost:80
+
+
 **NOTE**: The following sections use `podman`. `docker` users will have to adapt
 commands accordingly.
 
@@ -147,6 +158,12 @@ to test availability.
 ## Secrets
 
 TODO: Use proper docker secrets for providing keys.
+
+## Maintenance
+
+To update `docker-compose` specs version, use
+
+    grep -l "version: '2'" docker-compose.* | xargs sed -i "s/version: '2'/version: '3.8'/g"
 
 ## Testing
 

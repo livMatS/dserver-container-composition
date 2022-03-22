@@ -1,6 +1,6 @@
 FLASK_APP=dtool_lookup_server
-DUMP_HTTP_REQUESTS=false
-LOGLEVEL=warning
+DUMP_HTTP_REQUESTS=true
+LOGLEVEL=debug
 
 SQLALCHEMY_DATABASE_URI=postgresql://testing_user:testing_password@postgres:5432/dtool
 

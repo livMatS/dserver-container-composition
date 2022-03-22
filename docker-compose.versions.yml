@@ -1,5 +1,5 @@
 
-version: '2'
+version: '3.8'
 
 
 services:
@@ -15,5 +15,11 @@ services:
   token_generator_ldap:
     image: jotelha/dtool-token-generator-ldap:0.2.2
 
-  omgwtfssl:
+  omgwtfssl-dtool-lookup-server:
+    image: paulczar/omgwtfssl:latest
+
+  omgwtfssl-token-generator-ldap:
+    image: paulczar/omgwtfssl:latest
+
+  omgwtfssl-dtool-lookup-webapp:
     image: paulczar/omgwtfssl:latest
