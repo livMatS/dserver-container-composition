@@ -34,7 +34,7 @@ services:
   sambaserver:
     image: dperson/samba:latest
     restart: always
-    command: -p -S -w WORKGROUP -s sambashare;/share;yes;no;yes
+    command: ["-p", "-S", "-w", "WORKGROUP", "-s", "sambashare;/share;yes;no;yes"]
     expose:
       - "139"
       - "445"
