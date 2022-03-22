@@ -65,6 +65,7 @@ services:
       context: .
       dockerfile: ./compose/production/dtool_lookup_webapp/Dockerfile
     image: jotelha/dtool-lookup-webapp
+    restart: always
     depends_on:
       - dtool_lookup_server
     command: nginx -g 'daemon off;'
