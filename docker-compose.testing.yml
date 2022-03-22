@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 services:
   dtool_lookup_client:
@@ -11,7 +11,7 @@ services:
       s3server:
         condition: service_healthy
       s3server_init:
-        condition: service_started
+        condition: service_completed_successfully
     command: /start
 
   dtool_lookup_server:
@@ -47,7 +47,7 @@ services:
     restart: always
     depends_on:
       omgwtfssl-s3server:
-        condition: service_started
+        condition: service_completed_successfully
     env_file:
       - ./envs/production/minio
     ports:
@@ -59,7 +59,10 @@ services:
       - source: minio_secret_key
         target: secret_key
     volumes:
-      - cert_data:/certs
+      - type: volume
+        source: cert_data
+        target: /certs
+        read_only: True
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -103,14 +106,17 @@ services:
 
   omgwtfssl-dtool-lookup-server:
     depends_on:
-      - volume_init
+      volume_init:
+        condition: service_completed_successfully
 
   omgwtfssl-s3server:
     image: paulczar/omgwtfssl:latest
     restart: "no"
+    env_file:
+      - ./envs/production/omgwtfssl_s3server
     depends_on:
       omgwtfssl-dtool-lookup-server:
-        condition: service_started
+        condition: service_completed_successfully
     volumes:
       - cert_data:/certs
 

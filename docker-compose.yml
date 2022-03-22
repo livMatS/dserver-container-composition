@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 volumes:
   mongodb_data: {}
@@ -80,12 +80,12 @@ services:
     volumes:
       - cert_data:/certs
 
-  omgwtfssl-ldap-token-generator:
+  omgwtfssl-token-generator-ldap:
     image: paulczar/omgwtfssl:latest
     restart: "no"
     depends_on:
       omgwtfssl-dtool-lookup-server:
-        condition: service_started
+        condition: service_completed_successfully
     volumes:
       - cert_data:/certs
 
@@ -94,7 +94,7 @@ services:
     restart: "no"
     depends_on:
       omgwtfssl-dtool-lookup-server:
-        condition: service_started
+        condition: service_completed_successfully
     volumes:
       - cert_data:/certs
 

@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 services:
   mongodb:
@@ -20,6 +20,10 @@ services:
   omgwtfssl-dtool-lookup-server:
     env_file:
       - ./envs/production/omgwtfssl_dtool_lookup_server
+
+  omgwtfssl-token-generator-ldap:
+    env_file:
+      - ./envs/production/omgwtfssl_token_generator_ldap
 
   omgwtfssl-dtool-lookup-webapp:
     env_file:

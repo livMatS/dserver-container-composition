@@ -148,6 +148,12 @@ to test availability.
 
 TODO: Use proper docker secrets for providing keys.
 
+## Maintenance
+
+To update `docker-compose` specs version, use
+
+    grep -l "version: '2'" docker-compose.* | xargs sed -i "s/version: '2'/version: '3.8'/g"
+
 ## Testing
 
 It is possible to run the github actions workflow in

@@ -1,9 +1,0 @@
-CA_SUBJECT=admin@dtool-lookup-server.provider
-CA_KEY=/certs/ca-key.pem
-CA_CERT=/certs/CAs/ca.pem
-
-SSL_SUBJECT=ldap-token-generator
-SSL_DNS=ldap-token-generator
-SSL_KEY=/certs/ldap-token-generator.key
-SSL_CSR=/certs/ldap-token-generator.csr
-SSL_CERT=/certs/ldap-token-generator.crt
