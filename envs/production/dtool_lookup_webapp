@@ -1,0 +1,2 @@
+VUE_APP_DTOOL_LOOKUP_SERVER_URL="https://dtool-lookup-server:5000"
+VUE_APP_DTOOL_LOOKUP_SERVER_TOKEN_GENERATOR_URL="https://token-generator-ldap:5001/token"

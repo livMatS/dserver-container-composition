@@ -46,9 +46,8 @@ services:
     command: server /data --console-address ":9001" --certs-dir /certs/
     restart: always
     depends_on:
-      omgwtfssl:
+      omgwtfssl-s3server:
         condition: service_started
-
     env_file:
       - ./envs/production/minio
     ports:
@@ -102,10 +101,18 @@ services:
       - source: minio_secret_key
         target: secret_key
 
-  omgwtfssl:
+  omgwtfssl-dtool-lookup-server:
     depends_on:
       - volume_init
 
+  omgwtfssl-s3server:
+    image: paulczar/omgwtfssl:latest
+    restart: "no"
+    depends_on:
+      omgwtfssl-dtool-lookup-server:
+        condition: service_started
+    volumes:
+      - cert_data:/certs
 
 secrets:
   minio_access_key:

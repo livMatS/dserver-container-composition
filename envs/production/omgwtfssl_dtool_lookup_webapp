@@ -1,0 +1,9 @@
+CA_SUBJECT=admin@dtool-lookup-server.provider
+CA_KEY=/certs/ca-key.pem
+CA_CERT=/certs/CAs/ca.pem
+
+SSL_SUBJECT=dtool-lookup-webapp
+SSL_DNS=dtool-lookup-webapp
+SSL_KEY=/certs/dtool-lookup-webapp.key
+SSL_CSR=/certs/dtool-lookup-webapp.csr
+SSL_CERT=/certs/dtool-lookup-webapp.crt

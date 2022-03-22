@@ -17,6 +17,10 @@ services:
     env_file:
       - ./envs/production/token_generator_ldap
 
-  omgwtfssl:
+  omgwtfssl-dtool-lookup-server:
     env_file:
-      - ./envs/production/omgwtfssl
+      - ./envs/production/omgwtfssl_dtool_lookup_server
+
+  omgwtfssl-dtool-lookup-webapp:
+    env_file:
+      - ./envs/production/omgwtfssl_dtool_lookup_webapp
