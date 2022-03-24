@@ -10,14 +10,22 @@ services:
       - 5433
 
   dtool_lookup_server:
-    ports:
-      - "5000:5000"
+    expose:
+      - 5000
 
   dtool_lookup_webapp:
-    ports:
-      - "80:80"
-      - "443:443"
+    expose:
+      - 443
 
   token_generator_ldap:
+    expose:
+      - 5001
+
+  web:
     ports:
-      - "5001:5001"
+     - "80:80"
+     - "443:443"
+    environment:
+     - NGINX_HOST=livmats-data.vm.uni-freiburg.de
+     - NGINX_PORT=80
+     - NGINX_SSL_PORT=443
