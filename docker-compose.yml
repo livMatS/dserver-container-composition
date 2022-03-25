@@ -32,8 +32,6 @@ services:
         condition: service_started
       token_generator_ldap:
         condition: service_started
-      omgwtfssl-dtool-lookup-server:
-        condition: service_started
     command: /start
     volumes:
       - type: volume
@@ -80,7 +78,7 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - ./web/templates:/etc/nginx/templates
+      - ./volumes/web/templates:/etc/nginx/templates
       - type: volume
         source: cert_data
         target: /certs
@@ -95,28 +93,3 @@ services:
       token_generator_ldap:
         condition: service_started
     command: [nginx-debug, '-g', 'daemon off;']
-
-  omgwtfssl-dtool-lookup-server:
-    image: paulczar/omgwtfssl:latest
-    restart: "no"
-    volumes:
-      - cert_data:/certs
-
-  omgwtfssl-token-generator-ldap:
-    image: paulczar/omgwtfssl:latest
-    restart: "no"
-    depends_on:
-      omgwtfssl-dtool-lookup-server:
-        condition: service_completed_successfully
-    volumes:
-      - cert_data:/certs
-
-  omgwtfssl-dtool-lookup-webapp:
-    image: paulczar/omgwtfssl:latest
-    restart: "no"
-    depends_on:
-      omgwtfssl-dtool-lookup-server:
-        condition: service_completed_successfully
-    volumes:
-      - cert_data:/certs
-
