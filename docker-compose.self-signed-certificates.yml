@@ -10,6 +10,8 @@ services:
   omgwtfssl-dtool-lookup-server:
     image: paulczar/omgwtfssl:latest
     restart: "no"
+    env_file:
+      - ./envs/production/omgwtfssl_dtool_lookup_server
     volumes:
       - cert_data:/certs
 
@@ -19,6 +21,8 @@ services:
     depends_on:
       omgwtfssl-dtool-lookup-server:
         condition: service_completed_successfully
+    env_file:
+      - ./envs/production/omgwtfssl_token_generator_ldap
     volumes:
       - cert_data:/certs
 
@@ -28,6 +32,7 @@ services:
     depends_on:
       omgwtfssl-dtool-lookup-server:
         condition: service_completed_successfully
+    env_file:
+      - ./envs/production/omgwtfssl_dtool_lookup_webapp
     volumes:
       - cert_data:/certs
-
