@@ -18,10 +18,10 @@ services:
     restart: "no"
     command: >-
       acme.sh --install-cert -d ${HOSTNAME:-localhost}
-              --cert-file      /certs/dtool-lookup-server.crt
-              --key-file       /certs/dtool-lookup-server.key
-              --ca-file        /certs/CAs/ca.pem
-              --fullchain-file /certs/CAs/full-chain.pem
+              --cert-file      /certs/acme.crt
+              --key-file       /certs/acme.key
+              --ca-file        /certs/CAs/acme-ca.pem
+              --fullchain-file /certs/CAs/acme-full-chain.pem
     depends_on:
       volume_init:
         condition: service_completed_successfully
@@ -33,3 +33,8 @@ services:
         source: $HOME/acme.sh
         target: /acme.sh
         read_only: true
+
+  web:
+    environment:
+      - NGINX_SSL_CERT=/certs/acme.crt
+      - NGINX_SSL_KEY=/certs/acme.key

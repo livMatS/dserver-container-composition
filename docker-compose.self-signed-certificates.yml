@@ -61,3 +61,8 @@ services:
       - SSL_CERT=dtool-lookup-webapp.crt
     volumes:
       - cert_data:/certs
+
+  web:
+    environment:
+      - NGINX_SSL_CERT=/certs/dtool-lookup-server.crt
+      - NGINX_SSL_KEY=/certs/dtool-lookup-server.key
