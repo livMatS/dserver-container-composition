@@ -34,6 +34,7 @@ to generate tls/ssl and jwt keys, then source the preconfigured env file
 ```bash
 source env.testing.rc
 ```
+
 and run with
 
 ```bash

@@ -17,7 +17,7 @@ services:
     image: neilpang/acme.sh:latest
     restart: "no"
     command: >-
-      acme.sh --install-cert -d $HOSTNAME
+      acme.sh --install-cert -d ${HOSTNAME:-localhost}
               --cert-file      /certs/dtool-lookup-server.crt
               --key-file       /certs/dtool-lookup-server.key
               --ca-file        /certs/CAs/ca.pem

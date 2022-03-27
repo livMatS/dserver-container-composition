@@ -11,8 +11,18 @@ services:
   omgwtfssl-dtool-lookup-server:
     image: paulczar/omgwtfssl:latest
     restart: "no"
-    env_file:
-      - ./envs/production/omgwtfssl_dtool_lookup_server
+    depends_on:
+      volume_init:
+        condition: service_completed_successfully
+    environment:
+      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_KEY=ca-key.pem
+      - CA_CERT=CAs/ca.pem
+      - SSL_SUBJECT=dtool-lookup-server
+      - SSL_DNS=${HOSTNAME:-localhost},dtool-lookup-server
+      - SSL_KEY=dtool-lookup-server.key
+      - SSL_CSR=dtool-lookup-server.csr
+      - SSL_CERT=dtool-lookup-server.crt
     volumes:
       - cert_data:/certs
 
@@ -22,8 +32,15 @@ services:
     depends_on:
       omgwtfssl-dtool-lookup-server:
         condition: service_completed_successfully
-    env_file:
-      - ./envs/production/omgwtfssl_token_generator_ldap
+    environment:
+      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_KEY=ca-key.pem
+      - CA_CERT=CAs/ca.pem
+      - SSL_SUBJECT=token-generator-ldap
+      - SSL_DNS=${HOSTNAME:-localhost},token-generator-ldap
+      - SSL_KEY=token-generator-ldap.key
+      - SSL_CSR=token-generator-ldap.csr
+      - SSL_CERT=token-generator-ldap.crt
     volumes:
       - cert_data:/certs
 
@@ -33,7 +50,14 @@ services:
     depends_on:
       omgwtfssl-dtool-lookup-server:
         condition: service_completed_successfully
-    env_file:
-      - ./envs/production/omgwtfssl_dtool_lookup_webapp
+    environment:
+      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_KEY=ca-key.pem
+      - CA_CERT=CAs/ca.pem
+      - SSL_SUBJECT=dtool-lookup-webapp
+      - SSL_DNS=${HOSTNAME:-localhost},dtool-lookup-webapp
+      - SSL_KEY=dtool-lookup-webapp.key
+      - SSL_CSR=dtool-lookup-webapp.csr
+      - SSL_CERT=dtool-lookup-webapp.crt
     volumes:
       - cert_data:/certs
