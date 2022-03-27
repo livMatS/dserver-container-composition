@@ -67,8 +67,11 @@ services:
     restart: always
     depends_on:
       - dtool_lookup_server
-    command: nginx -g 'daemon off;'
     volumes:
+      - type: bind
+        source: ./volumes/webapp/templates
+        target: /etc/nginx/templates
+        read_only: True
       - type: volume
         source: cert_data
         target: /certs
@@ -78,7 +81,10 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - ./volumes/web/templates:/etc/nginx/templates
+      - type: bind
+        source: ./volumes/web/templates
+        target: /etc/nginx/templates
+        read_only: True
       - type: volume
         source: cert_data
         target: /certs

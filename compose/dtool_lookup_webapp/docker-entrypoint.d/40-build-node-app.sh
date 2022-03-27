@@ -10,5 +10,3 @@ done < <(env)
 # build application code
 npm install
 npm run build
-
-exec docker-entrypoint.sh "$@"

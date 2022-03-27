@@ -1,7 +1,10 @@
 server {
     listen              ${NGINX_PORT};
     server_name         ${NGINX_HOST};
-    return              301 https://${NGINX_HOST}:${NGINX_SSL_PORT}$request_uri;
+    location / {
+        rewrite ^(.*) https://${NGINX_HOST}:${NGINX_SSL_PORT}$1 permanent;
+    }
+    # return              301 https://${NGINX_HOST}:${NGINX_SSL_PORT}$request_uri;
 }
 
 server {
@@ -19,6 +22,8 @@ server {
     }
 
     location / {
-        proxy_pass https://dtool-lookup-webapp:443;
+        proxy_pass https://dtool-lookup-webapp:443/;
     }
+
+    error_page 497 https://${NGINX_HOST}:${NGINX_SSL_PORT}$request_uri;
 }
