@@ -1,0 +1,40 @@
+---
+version: '3.8'
+
+services:
+
+  dtool_lookup_server:
+    depends_on:
+      acme:
+        condition: service_completed_successfully
+
+  token_generator_ldap:
+    depends_on:
+      acme:
+        condition: service_completed_successfully
+
+  acme:
+    image: neilpang/acme.sh:latest
+    restart: "no"
+    command: >-
+      acme.sh --install-cert -d ${HOSTNAME:-localhost}
+              --cert-file      /certs/acme.crt
+              --key-file       /certs/acme.key
+              --ca-file        /certs/CAs/acme-ca.pem
+              --fullchain-file /certs/CAs/acme-full-chain.pem
+    depends_on:
+      volume_init:
+        condition: service_completed_successfully
+    volumes:
+      - type: volume
+        source: cert_data
+        target: /certs
+      - type: bind
+        source: $HOME/acme.sh
+        target: /acme.sh
+        read_only: true
+
+  web:
+    environment:
+      - NGINX_SSL_CERT=/certs/acme.crt
+      - NGINX_SSL_KEY=/certs/acme.key
