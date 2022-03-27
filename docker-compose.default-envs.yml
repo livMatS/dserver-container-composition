@@ -1,3 +1,4 @@
+---
 version: '3.8'
 
 services:
@@ -12,10 +13,6 @@ services:
   dtool_lookup_server:
     env_file:
       - ./envs/production/dtool_lookup_server
-
-  dtool_lookup_webapp:
-    env_file:
-      - ./envs/production/dtool_lookup_webapp
 
   token_generator_ldap:
     env_file:

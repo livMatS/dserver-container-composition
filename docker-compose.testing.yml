@@ -1,3 +1,4 @@
+---
 version: '3.8'
 
 services:
@@ -34,7 +35,8 @@ services:
   sambaserver:
     image: dperson/samba:latest
     restart: always
-    command: ["-p", "-S", "-w", "WORKGROUP", "-s", "sambashare;/share;yes;no;yes"]
+    command: ["-p", "-S", "-w", "WORKGROUP",
+              "-s", "sambashare;/share;yes;no;yes"]
     expose:
       - "139"
       - "445"
@@ -59,7 +61,7 @@ services:
       - type: volume
         source: cert_data
         target: /certs
-        read_only: True
+        read_only: true
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -69,20 +71,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-  # initialize volumes
-  volume_init:
-    hostname: volume-init
-    build:
-      context: .
-      dockerfile: ./compose/volume-init/Dockerfile
-      args:
-        version: latest
-    image: volume-init:latest
-    restart: "on-failure"
-    volumes:
-      - cert_data:/certs
-
-  # initialize s3-compatible minio server 
+  # initialize s3-compatible minio server
   s3server_init:
     hostname: s3server-init
     build:
@@ -100,6 +89,30 @@ services:
         target: access_key
       - source: minio_secret_key
         target: secret_key
+
+  testing_env_init:
+    hostname: testing-env-init
+    build:
+      context: .
+      dockerfile: ./compose/testing-env-init/Dockerfile
+      args:
+        version: latest
+    image: testing-env-init:latest
+    restart: "on-failure"
+    depends_on:
+      s3server:
+        condition: service_healthy
+      s3server_init:
+        condition: service_completed_successfully
+      sambaserver:
+        condition: service_healthy
+      dtool_lookup_server:
+        condition: service_started
+    volumes:
+      - type: bind
+        source: ./tests
+        target: /tests
+        read_only: true
 
 secrets:
   minio_access_key:
