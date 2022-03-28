@@ -12,13 +12,7 @@
 #
 set -euxo pipefail
 
-DOCKER_COMPOSE_OPTS=${DOCKER_COMPOSE_OPTS:-"-p dtool-lookup-server \
-                                           -f docker-compose.yml \
-                                           -f docker-compose.versions.yml \
-                                           -f docker-compose.default-envs.yml \
-                                           -f docker-compose.default-ports.yml \
-                                           -f docker-compose.testing.yml \
-                                           -f docker-compose.testing.versions.yml"}
+source env.testing.rc
 
 docker-compose ${DOCKER_COMPOSE_OPTS} down --volumes --timeout 30
 
