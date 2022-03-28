@@ -49,6 +49,19 @@ To initialize this server composition with test datasets on smb share and s3 buc
 bash tests/init.sh
 ```
 
+## Composition-wide environment variables
+
+Use a docker-compose `.env` file with content
+
+```
+ADMINMAIL=amin@site
+HOSTNAME=localhost
+EXTERNAL_HTTP_PORT=80
+EXTERNAL_HTTPS_PORT=443
+```
+
+to override defaults for site email, address and ports.
+
 ## Stacking docker-compose files
 
 Several combinable docker-compose files are available as samples. 
