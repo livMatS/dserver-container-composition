@@ -97,6 +97,38 @@ docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
                -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml \
                -f docker-compose.testing.yml -f docker-compose.testing.versions.yml up -d
 
+## TLS/SSL certificates
+
+This compositon may use `acme.sh` to install certificates. These are expected 
+to reside within `${HOME}/acme.sh` on the host machine.
+
+Use the `neilpang/acme.sh:latest` docker image and commands like
+
+```bash
+# get help
+docker run neilpang/acme.sh:latest acme.sh --help
+
+# issue testing certificates for first time, this happens via Let's Encrypt
+mkdir -p $HOME/acme.sh
+docker run -v "$HOME/acme.sh:/acme.sh" -p 80:80 --rm neilpang/acme.sh:latest \
+  acme.sh --issue -d livmats-data.vm.uni-freiburg.de --standalone --staging
+
+# then replace testing certificates with proper ones,
+docker run -v "$HOME/acme.sh:/acme.sh" --rm neilpang/acme.sh:latest \
+  acme.sh --register-account -m data@livmats-uni-freiburg.de
+docker run -v "$HOME/acme.sh:/acme.sh" -p 80:80 --rm neilpang/acme.sh:latest \
+  acme.sh --issue -d livmats-data.vm.uni-freiburg.de --standalone --force
+```
+
+to issue and store certificates. Then, use 
+
+    source env.testing.valid-certificates.alt-ports.rc
+    docker compose docker-compose ${DOCKER_COMPOSE_OPTS} up -d
+
+to install these certificates into the composition at startup.
+Inspect `env.testing.valid-certificates.alt-ports.rc` and `docker-compose.acme.yml`
+and adapt them as needed.
+
 ## Usage
 
 Per default, this composition provides self-signed SSL certificates.
