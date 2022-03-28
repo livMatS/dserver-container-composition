@@ -2,10 +2,10 @@
 version: '3.8'
 
 services:
+  # use this as blocking dummy until testing environment initialization is complete
   dtool_lookup_client:
     hostname: dtool-lookup-client
     image: jotelha/dtool-lookup-client:latest
-    restart: on-failure
     depends_on:
       sambaserver:
         condition: service_healthy
@@ -13,7 +13,8 @@ services:
         condition: service_healthy
       s3server_init:
         condition: service_completed_successfully
-    command: /start
+      testing_env_init:
+        condition: service_completed_successfully
 
   dtool_lookup_server:
     depends_on:
