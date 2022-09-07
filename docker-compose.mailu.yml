@@ -1,9 +1,27 @@
 version: '3.8'
 
 volumes:
-  cert_data: {}
+  cert_data_mailu: {}
 
 services:
+  acme-mailu:
+    image: neilpang/acme.sh:latest
+    restart: "no"
+    command: >-
+      acme.sh --install-cert -d ${DOMAIN}
+              --cert-file      /certs/cert.pem
+              --key-file       /certs/key.pem
+              --ca-file        /certs/ca.pem
+              --fullchain-file /certs/full-chain.pem
+    volumes:
+      - type: volume
+        source: cert_data_mailu
+        target: /certs
+      - type: bind
+        source: $HOME/acme.sh
+        target: /acme.sh
+        read_only: true
+
   # External dependencies
   redis:
     image: redis:alpine
@@ -22,9 +40,12 @@ services:
     env_file: ./envs/production/mailu
     logging:
       driver: json-file
+    expose:
+      - "80"
+      - "443"
     ports:
-      - "127.0.0.1:8080:80"
-      - "127.0.0.1:8443:443"
+      # - "${BIND}:8080:80"
+      # - "${BIND}:8443:443"
       - "${BIND}:25:25"
       - "${BIND}:465:465"
       - "${BIND}:587:587"
@@ -34,7 +55,7 @@ services:
       - "${BIND}:993:993"
     volumes:
       - type: volume
-        source: cert_data
+        source: cert_data_mailu
         target: /certs
       - "./mailu/overrides/nginx:/overrides:ro"
     depends_on:
@@ -44,6 +65,9 @@ services:
         condition: service_completed_successfully
     dns:
       - 192.168.203.254
+    networks:
+      default:
+        ipv4_address: 192.168.203.111
 
   resolver:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}unbound:${MAILU_VERSION:-1.9}
