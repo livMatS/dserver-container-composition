@@ -4,24 +4,6 @@ volumes:
   cert_data_mailu: {}
 
 services:
-  acme-mailu:
-    image: neilpang/acme.sh:latest
-    restart: "no"
-    command: >-
-      acme.sh --install-cert -d ${DOMAIN}
-              --cert-file      /certs/cert.pem
-              --key-file       /certs/key.pem
-              --ca-file        /certs/ca.pem
-              --fullchain-file /certs/full-chain.pem
-    volumes:
-      - type: volume
-        source: cert_data_mailu
-        target: /certs
-      - type: bind
-        source: $HOME/acme.sh
-        target: /acme.sh
-        read_only: true
-
   # External dependencies
   redis:
     image: redis:alpine
@@ -61,8 +43,6 @@ services:
     depends_on:
       resolver:
         condition: service_started
-      acme:
-        condition: service_completed_successfully
     dns:
       - 192.168.203.254
     networks:
