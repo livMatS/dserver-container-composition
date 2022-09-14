@@ -49,6 +49,14 @@ To initialize this server composition with test datasets on smb share and s3 buc
 bash tests/init.sh
 ```
 
+The default configuration exposes several services behind a reverse proxy. 
+If the composition runs on `localhost`, then
+
+* `/(admin|sso|static|webdav|webmail)` expose the mail server mailu
+* `/lookup` routes expose the lookup server
+* `/token` expose the token generator
+* `/` directly exposes the lookup server webapp
+
 ## Composition-wide environment variables
 
 Use a docker-compose `.env` file with content
