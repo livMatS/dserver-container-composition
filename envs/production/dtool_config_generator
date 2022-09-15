@@ -1,0 +1,6 @@
+SCRIPT_NAME=/config
+FLASK_CONFIG_FILE=/config/production.cfg
+
+FLASK_BINDING=0.0.0.0:5005
+SSL_CERT_FILE=/certs/dtool-config-generator.crt
+SSL_KEY_FILE=/certs/dtool-config-generator.key

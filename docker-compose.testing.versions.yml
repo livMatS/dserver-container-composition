@@ -5,6 +5,9 @@ services:
   dtool_lookup_client:
     image: jotelha/dtool-lookup-client:0.5.3
 
+  dtool_config_generator:
+    image: jotelha/dtool-config-generator:0.2.0
+
   ldap:
     image: bitnami/openldap:2.6.1
 
