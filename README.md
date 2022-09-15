@@ -14,12 +14,15 @@ and template for provision. Components are
 * `livMatS/dtool-lookup-server` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-lookup-server), [on github](https://github.com/livMatS/dtool-lookup-server-container-image)
 * `livMatS/dtool-lookup-client` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-lookup-client), [on github](https://github.com/livMatS/dtool-lookup-client-container-image)
 * `livMatS/dtool-token-generator-ldap`[on dockerhub](https://hub.docker.com/r/jotelha/dtool-token-generator-ldap), [on github](https://github.com/livMatS/dtool-token-generator-ldap-container-image)
+* `livMatS/dtool-config-generator` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-config-generator), [on github](https://github.com/livMatS/dtool-config-generator-container-image)
 * [`livmats/dtool-lookup-webapp`](https://github.com/livmats/dtool-lookup-webapp), fork of [`jic-dtool/dtool-lookup-webapp`](https://github.com/jic-dtool/dtool-lookup-webapp)
 * MongoDB [on dockerhub](https://hub.docker.com/_/mongo)
 * Postgres [on dockerhub](https://hub.docker.com/_/postgres)
 * `bitnami/openldap` [on dockerhub](https://hub.docker.com/r/bitnami/openldap/)
 * `dperson/samba` [on dockerhub](https://hub.docker.com/r/dperson/samba)
 * `minio/minio` [on dockerhub](https://hub.docker.com/r/minio/minio)
+* [`mailu.io`](https://mailu.io)
+* `nginx` [on dockerhub](https://hub.docker.com/_/nginx)
 
 ## Quick start
 
@@ -43,18 +46,13 @@ docker-compose ${DOCKER_COMPOSE_OPTS} up -d
 
 to bring up a fully functional dtool ecosystem composition.
 
-To initialize this server composition with test datasets on smb share and s3 bucket and index those once, run
-
-```bash
-bash tests/init.sh
-```
-
 The default configuration exposes several services behind a reverse proxy. 
 If the composition runs on `localhost`, then
 
 * `/(admin|sso|static|webdav|webmail)` expose the mail server mailu
 * `/lookup` routes expose the lookup server
-* `/token` expose the token generator
+* `/token` exposes the token generator
+* `/config` routes expose the config generator
 * `/` directly exposes the lookup server webapp
 
 ## Composition-wide environment variables
@@ -62,13 +60,30 @@ If the composition runs on `localhost`, then
 Use a docker-compose `.env` file with content
 
 ```
-ADMINMAIL=admin@site
-HOSTNAME=localhost
+# ssl cerificates
+ADMINMAIL=admin@dtool-lookup.server
+HOSTNAME=my.domain.placeholder
+
 EXTERNAL_HTTP_PORT=80
 EXTERNAL_HTTPS_PORT=443
+
+# MAILU-related
+BIND=0.0.0.0
+DOMAIN=my.domain.placeholder
 ```
 
 to override defaults for site email, address and ports.
+
+## Hard-coded domain name
+
+Run
+
+```bash
+bash maintenance/replace_hostname.sh $HOSTNAME
+```
+
+to replace the `my.domain.placeholder` string hard-coded within several files
+by `$HOSTNAME` (or any other domain).
 
 ## Stacking docker-compose files
 
