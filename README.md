@@ -62,7 +62,7 @@ If the composition runs on `localhost`, then
 Use a docker-compose `.env` file with content
 
 ```
-ADMINMAIL=amin@site
+ADMINMAIL=admin@site
 HOSTNAME=localhost
 EXTERNAL_HTTP_PORT=80
 EXTERNAL_HTTPS_PORT=443
