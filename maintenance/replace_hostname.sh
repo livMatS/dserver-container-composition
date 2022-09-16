@@ -3,7 +3,7 @@
 # First, show occurences.
 echo "### Occurrences: ###"
 { occurrences=$(
-    grep --exclude-dir=.git -I -R "${2:-my.domain.placeholder}" . \
+    grep --exclude=README.md --exclude-dir=.git --exclude-dir=maintenance -I -R "${2:-my.domain.placeholder}" . \
         | tee /dev/fd/3 \
         | awk -F: '{ print $1 }' \
         | uniq); } 2> /dev/null 3>&1
