@@ -1,0 +1,35 @@
+---
+version: '3.8'
+
+volumes:
+  dtool_config_generator_data: {}
+
+services:
+  dtool_config_generator_postgres:
+    hostname: dtool-config-generator-postgres
+    image: postgres:latest
+    restart: always
+    volumes:
+      - dtool_config_generator_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    env_file:
+      - ./envs/production/dtool_config_generator_postgres
+
+  dtool_config_generator:
+    hostname: dtool-config-generator
+    image: jotelha/dtool-config-generator:latest
+    restart: always
+    env_file:
+      - ./envs/production/dtool_config_generator
+    expose:
+      - "5005"
+    volumes:
+      - type: bind
+        source: ./volumes/dtool_config_generator
+        target: /config
+        read_only: true
+      - type: volume
+        source: cert_data
+        target: /certs
+        read_only: true

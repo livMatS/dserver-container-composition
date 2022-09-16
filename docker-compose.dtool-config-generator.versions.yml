@@ -1,0 +1,7 @@
+---
+version: '3.8'
+
+services:
+
+  dtool_config_generator:
+    image: jotelha/dtool-config-generator:0.2.0
