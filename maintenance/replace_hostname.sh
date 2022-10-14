@@ -3,7 +3,7 @@
 # First, show occurences.
 echo "### Occurrences: ###"
 { occurrences=$(
-    grep --exclude=README.md --exclude-dir=.git --exclude-dir=maintenance -I -R "${2:-my.domain.placeholder}" . \
+    grep --exclude=README.md --exclude-dir=.git --exclude-dir=maintenance -I -R "${2:-demo.dtool.dev}" . \
         | tee /dev/fd/3 \
         | awk -F: '{ print $1 }' \
         | uniq); } 2> /dev/null 3>&1
@@ -13,6 +13,6 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   for occurrence in $occurrences; do
-    sed -i "s|${2:-my.domain.placeholder}|${1:-$HOSTNAME}|g" "${occurrence}"
+    sed -i "s|${2:-demo.dtool.dev}|${1:-$HOSTNAME}|g" "${occurrence}"
   done
 fi
