@@ -6,6 +6,10 @@ RUN groupadd --gid 1000 node \
 
 ENV NODE_VERSION 18.11.0
 
+RUN apt-get --yes update && \
+    apt-get --no-install-recommends --yes install git gpg dirmngr gpg-agent xz-utils && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
