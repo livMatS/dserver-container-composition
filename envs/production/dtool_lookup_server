@@ -6,7 +6,13 @@ LOGLEVEL=debug
 
 SQLALCHEMY_DATABASE_URI=postgresql://testing_user:testing_password@postgres:5432/dtool
 
-MONGO_URI=mongodb://mongodb:27017/dtool_info
+SEARCH_MONGO_URI=mongodb://mongodb:27017/
+SEARCH_MONGO_DB=dtool_info
+SEARCH_MONGO_COLLECTION=datasets
+
+RETRIEVE_MONGO_URI=mongodb://mongodb:27017/
+RETRIEVE_MONGO_DB=dtool_info
+RETRIEVE_MONGO_COLLECTION=datasets
 
 BIND_TO=0.0.0.0:5000
 
