@@ -1,6 +1,6 @@
 # dtool-lookup-server-container-composition
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/livMatS/dtool-lookup-server-container-composition/test)](https://github.com/livMatS/dtool-lookup-server-container-composition/actions?query=workflow%3Atest)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dtool-lookup-server-container-composition/test.yml?branch=master)](https://github.com/livMatS/dtool-lookup-server-container-composition/actions?query=workflow%3Atest)
 
 Copyright 2020, 2021 IMTEK Simulation, University of Freiburg, 2022 livMatS
 
