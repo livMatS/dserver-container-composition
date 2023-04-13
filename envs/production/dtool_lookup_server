@@ -31,3 +31,23 @@ DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.sou
 
 DTOOL_LOOKUP_SERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
 DTOOL_LOOKUP_SERVER_NOTIFY_ALLOW_ACCESS_FROM=0.0.0.0/0
+
+API_SPEC_OPTIONS='{
+        "x-internal-id": "2",
+        "security": [{"bearerAuth": []}],
+        "servers": [
+          {
+           "url": "https://my.domain.placeholder/lookup",
+           "description": "dtool-lookup-server demo instance"
+          }
+        ],
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
+            }
+        }
+}'
