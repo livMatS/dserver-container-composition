@@ -1,6 +1,6 @@
 # dtool-lookup-server-container-composition
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/livMatS/dtool-lookup-server-container-composition/test)](https://github.com/livMatS/dtool-lookup-server-container-composition/actions?query=workflow%3Atest)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dtool-lookup-server-container-composition/test.yml?branch=master)](https://github.com/livMatS/dtool-lookup-server-container-composition/actions?query=workflow%3Atest)
 
 Copyright 2020, 2021 IMTEK Simulation, University of Freiburg, 2022 livMatS
 
@@ -116,9 +116,9 @@ docker-compose ${DOCKER_COMPOSE_OPTS} config
 Two docker-compose override files are used for pinning versions on images. These versions are used in CI workflows. 
 Latest images used per default may not work. For pinning all images to these sversions, use
 
-docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
-               -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml \
-               -f docker-compose.testing.yml -f docker-compose.testing.versions.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
+                   -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml \
+                   -f docker-compose.testing.yml -f docker-compose.testing.versions.yml up -d
 
 ## TLS/SSL certificates
 
