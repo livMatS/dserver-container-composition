@@ -21,12 +21,6 @@ server {
         proxy_pass https://token-generator-ldap:5001/token;
     }
 
-    location /config {
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_pass https://dtool-config-generator:5005;
-    }
-
     location / {
         proxy_pass https://dtool-lookup-webapp:443/;
     }
