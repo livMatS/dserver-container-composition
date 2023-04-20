@@ -21,7 +21,6 @@ and template for provision. Components are
 * `bitnami/openldap` [on dockerhub](https://hub.docker.com/r/bitnami/openldap/)
 * `dperson/samba` [on dockerhub](https://hub.docker.com/r/dperson/samba)
 * `minio/minio` [on dockerhub](https://hub.docker.com/r/minio/minio)
-* [`mailu.io`](https://mailu.io)
 * `nginx` [on dockerhub](https://hub.docker.com/_/nginx)
 
 ## Quick start
@@ -49,7 +48,6 @@ to bring up a fully functional dtool ecosystem composition.
 The default configuration exposes several services behind a reverse proxy. 
 If the composition runs on `localhost`, then
 
-* `/(admin|sso|static|webdav|webmail)` expose the mail server mailu
 * `/lookup` routes expose the lookup server
 * `/token` exposes the token generator
 * `/config` routes expose the config generator
@@ -66,13 +64,9 @@ HOSTNAME=my.domain.placeholder
 
 EXTERNAL_HTTP_PORT=80
 EXTERNAL_HTTPS_PORT=443
-
-# MAILU-related
-BIND=0.0.0.0
-DOMAIN=my.domain.placeholder
 ```
 
-to override defaults for site email, address and ports.
+to override defaults for site address and ports.
 
 ## Hard-coded domain name
 
