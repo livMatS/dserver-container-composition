@@ -4,33 +4,41 @@ FLASK_APP=dtool_lookup_server
 DUMP_HTTP_REQUESTS=true
 LOGLEVEL=debug
 
+BIND_TO=0.0.0.0:5000
+
 SQLALCHEMY_DATABASE_URI=postgresql://testing_user:testing_password@postgres:5432/dtool
 
-MONGO_URI=mongodb://mongodb:27017/dtool_info
-
+# search plugin
 SEARCH_MONGO_URI=mongodb://mongodb:27017/
 SEARCH_MONGO_DB=dtool_info
 SEARCH_MONGO_COLLECTION=datasets
 
+# retrieve plugin
 RETRIEVE_MONGO_URI=mongodb://mongodb:27017/
 RETRIEVE_MONGO_DB=dtool_info
 RETRIEVE_MONGO_COLLECTION=datasets
 
-BIND_TO=0.0.0.0:5000
+# direct mongo plugin
+MONGO_URI=mongodb://mongodb:27017/
+MONGO_DB=dtool_info
+MONGO_COLLECTION=metadata
+
+DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
+DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=False
+
+# dependency graph plugin
+DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
+DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
+
+# notifcation plugin
+DTOOL_LOOKUP_SERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
+DTOOL_LOOKUP_SERVER_NOTIFY_ALLOW_ACCESS_FROM="0.0.0.0/0"
 
 JWT_PUBLIC_KEY_FILE=/run/secrets/jwt_key.pub
 JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
 
 SSL_CERT_FILE=/certs/dtool-lookup-server.crt
 SSL_KEY_FILE=/certs/dtool-lookup-server.key
-
-DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
-DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=True
-DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
-DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
-
-DTOOL_LOOKUP_SERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
-DTOOL_LOOKUP_SERVER_NOTIFY_ALLOW_ACCESS_FROM=0.0.0.0/0
 
 API_SPEC_OPTIONS='{
         "x-internal-id": "2",
