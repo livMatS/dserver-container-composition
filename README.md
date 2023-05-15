@@ -21,7 +21,6 @@ and template for provision. Components are
 * `bitnami/openldap` [on dockerhub](https://hub.docker.com/r/bitnami/openldap/)
 * `dperson/samba` [on dockerhub](https://hub.docker.com/r/dperson/samba)
 * `minio/minio` [on dockerhub](https://hub.docker.com/r/minio/minio)
-* [`mailu.io`](https://mailu.io)
 * `nginx` [on dockerhub](https://hub.docker.com/_/nginx)
 
 ## Quick start
@@ -41,7 +40,7 @@ source env.testing.rc
 and run with
 
 ```bash
-docker-compose ${DOCKER_COMPOSE_OPTS} up -d
+docker compose ${DOCKER_COMPOSE_OPTS} up -d
 ```
 
 to bring up a fully functional dtool ecosystem composition.
@@ -49,7 +48,6 @@ to bring up a fully functional dtool ecosystem composition.
 The default configuration exposes several services behind a reverse proxy. 
 If the composition runs on `localhost`, then
 
-* `/(admin|sso|static|webdav|webmail)` expose the mail server mailu
 * `/lookup` routes expose the lookup server
 * `/token` exposes the token generator
 * `/config` routes expose the config generator
@@ -57,7 +55,7 @@ If the composition runs on `localhost`, then
 
 ## Composition-wide environment variables
 
-Use a docker-compose `.env` file with content
+Use a docker compose `.env` file with content
 
 ```
 # ssl cerificates
@@ -66,13 +64,9 @@ HOSTNAME=my.domain.placeholder
 
 EXTERNAL_HTTP_PORT=80
 EXTERNAL_HTTPS_PORT=443
-
-# MAILU-related
-BIND=0.0.0.0
-DOMAIN=my.domain.placeholder
 ```
 
-to override defaults for site email, address and ports.
+to override defaults for site address and ports.
 
 ## Hard-coded domain name
 
@@ -91,7 +85,7 @@ Several combinable docker-compose files are available as samples.
 These are stacked and merged on the command line in the manner of
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.alt-ports.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.default-envs.yml -f docker-compose.alt-ports.yml up -d
 ```
 
 Inspect the `env*rc` files to understand how to use them. 
@@ -99,7 +93,7 @@ Inspect the `env*rc` files to understand how to use them.
 
 ```bash
 source env.testing.alt-ports.rc
-docker-compose ${DOCKER_COMPOSE_OPTS} up -d
+docker compose ${DOCKER_COMPOSE_OPTS} up -d
 ```
 
 will set up the docker-compose command line options accordingly in `${DOCKER_COMPOSE_OPTS}` and bring up a server on alternative ports.
@@ -108,7 +102,7 @@ Make sure execute all docker-compose commands on the composition with the same s
 To see the resulting compose configuration, use
 
 ```bash
-docker-compose ${DOCKER_COMPOSE_OPTS} config
+docker compose ${DOCKER_COMPOSE_OPTS} config
 ```
 
 ## Pinned versions
@@ -116,7 +110,7 @@ docker-compose ${DOCKER_COMPOSE_OPTS} config
 Two docker-compose override files are used for pinning versions on images. These versions are used in CI workflows. 
 Latest images used per default may not work. For pinning all images to these sversions, use
 
-    docker-compose -f docker-compose.yml -f docker-compose.versions.yml \
+    docker compose -f docker-compose.yml -f docker-compose.versions.yml \
                    -f docker-compose.default-envs.yml -f docker-compose.default-ports.yml \
                    -f docker-compose.testing.yml -f docker-compose.testing.versions.yml up -d
 
@@ -146,7 +140,7 @@ docker run -v "$HOME/acme.sh:/acme.sh" -p 80:80 --rm neilpang/acme.sh:latest \
 to issue and store certificates. Then, use 
 
     source env.testing.valid-certificates.alt-ports.rc
-    docker compose docker-compose ${DOCKER_COMPOSE_OPTS} up -d
+    docker compose ${DOCKER_COMPOSE_OPTS} up -d
 
 to install these certificates into the composition at startup.
 Inspect `env.testing.valid-certificates.alt-ports.rc` and `docker-compose.acme.yml`
@@ -164,29 +158,24 @@ If running locally in default configuration, retrieve the certificates from
     https://localhost:5001/token
     https://localhost:80
 
-
-**NOTE**: The following sections use `podman`. `docker` users will have to adapt
-commands accordingly.
-
-
 On launch, a test dataset is placed on the smb share. It might be necessary to manually refresh the index to
 register this testing dataset after the first launch, i.e.
 
 ```bash
-podman exec -it dtool-lookup-server-container-composition_dtool_lookup_server_1 /refresh_index
+docker compose ${DOCKER_COMPOSE_OPTS} exec -it dtool_lookup_server /refresh_index
 ```
 
 After pod up and images available, relaunch interactive session for manual
 testing with
 
 ```bash
-podman run -it --pod dtool-lookup-server-container-composition dtool-lookup-client bash
+docker compose ${DOCKER_COMPOSE_OPTS} run -it --entrypoint bash dtool_lookup_client
 ```
 
 or run dtool commands directly, i.e. via
 
 ```console
-$ podman run -it --pod dtool-lookup-server-container-composition jotelha/dtool-lookup-client dtool query '{}'
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool_lookup_client search 'Test'
 [
   {
     "base_uri": "smb://test-share",
@@ -203,10 +192,8 @@ $ podman run -it --pod dtool-lookup-server-container-composition jotelha/dtool-l
 ]
 ```
 
-or
-
 ```console
-$ podman run -it --pod dtool-lookup-server-container-composition jotelha/dtool-lookup-client dtool ls smb://test-share
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool_lookup_client ls smb://test-share
 simple_test_dataset
   smb://test-share/1a1f9fad-8589-413e-9602-5bbd66bfe675
 ```
