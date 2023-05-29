@@ -24,9 +24,10 @@ MONGO_DB=dtool_info
 MONGO_COLLECTION=metadata
 
 DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
-DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=False
+DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=True
 
 # dependency graph plugin
+# ATTENTION: DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True is a security risk
 DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
 DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
 
