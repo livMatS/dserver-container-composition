@@ -114,6 +114,10 @@ services:
         source: ./tests
         target: /tests
         read_only: true
+      - type: bind
+        source: ./volumes/test_datasets
+        target: /datasets
+        read_only: true
 
 secrets:
   minio_access_key:
