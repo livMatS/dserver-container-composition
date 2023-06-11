@@ -22,9 +22,9 @@ RETRIEVE_MONGO_COLLECTION=datasets
 MONGO_URI=mongodb://mongodb:27017/
 MONGO_DB=dtool_info
 MONGO_COLLECTION=metadata
-
-DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
-DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=False
+ALLOW_DIRECT_QUERY=True
+# ATTENTION: ALLOW_DIRECT_AGGREGATION=True is a security risk
+ALLOW_DIRECT_AGGREGATION=True
 
 # dependency graph plugin
 DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
