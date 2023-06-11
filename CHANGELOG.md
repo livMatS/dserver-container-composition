@@ -1,5 +1,11 @@
 # Changelog for *dtool-lookup-server-container-composition*
 
+## 0.11.1
+
+- MAINT: Allow direct mongo aggregation per default
+
+## 0.11.0
+
 - DEP: dtool-lookup-server-container-image to 0.8.0
 
 ## 0.10.0
