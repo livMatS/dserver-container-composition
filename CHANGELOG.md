@@ -1,5 +1,9 @@
 # Changelog for *dtool-lookup-server-container-composition*
 
+## 0.11.2
+
+- MAINT: /mongo routes actually working
+
 ## 0.11.1
 
 - MAINT: Allow direct mongo aggregation per default
