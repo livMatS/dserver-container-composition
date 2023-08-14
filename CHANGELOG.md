@@ -1,5 +1,9 @@
 # Changelog for *dtool-lookup-server-container-composition*
 
+## 0.12.0
+
+- DEP: dtool-lookup-server-container-image to 0.9.0
+
 ## 0.11.2
 
 - MAINT: /mongo routes actually working
