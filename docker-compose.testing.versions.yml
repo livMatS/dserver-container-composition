@@ -2,8 +2,8 @@
 version: '3.8'
 
 services:
-  dtool_lookup_client:
-    image: jotelha/dtool-lookup-client:0.5.3
+  dserver_client:
+    image: jotelha/dserver-client:latest
 
   ldap:
     image: bitnami/openldap:latest

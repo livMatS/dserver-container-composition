@@ -12,7 +12,7 @@ This container composition provides a working dtool lookp server ecosystem. It s
 and template for provision. Components are
 
 * `livMatS/dserver` [on dockerhub](https://hub.docker.com/r/jotelha/dserver), [on github](https://github.com/livMatS/dserver-container-image)
-* `livMatS/dtool-lookup-client` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-lookup-client), [on github](https://github.com/livMatS/dtool-lookup-client-container-image)
+* `livMatS/dserver-client` [on dockerhub](https://hub.docker.com/r/jotelha/dserver-client), [on github](https://github.com/livMatS/dserver-client-container-image)
 * `livMatS/dtool-token-generator-ldap`[on dockerhub](https://hub.docker.com/r/jotelha/dtool-token-generator-ldap), [on github](https://github.com/livMatS/dtool-token-generator-ldap-container-image)
 * `livMatS/dtool-config-generator` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-config-generator), [on github](https://github.com/livMatS/dtool-config-generator-container-image)
 * [`livmats/dtool-lookup-webapp`](https://github.com/livmats/dtool-lookup-webapp), fork of [`jic-dtool/dtool-lookup-webapp`](https://github.com/jic-dtool/dtool-lookup-webapp)
@@ -169,13 +169,13 @@ After pod up and images available, relaunch interactive session for manual
 testing with
 
 ```bash
-docker compose ${DOCKER_COMPOSE_OPTS} run -it --entrypoint bash dtool_lookup_client
+docker compose ${DOCKER_COMPOSE_OPTS} run -it --entrypoint bash dserver_client
 ```
 
 or run dtool commands directly, i.e. via
 
 ```console
-$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool_lookup_client search 'Test'
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dserver_client search 'Test'
 [
   {
     "base_uri": "smb://test-share",
@@ -193,7 +193,7 @@ $ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool_lookup_client search 'Test
 ```
 
 ```console
-$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool_lookup_client ls smb://test-share
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dserver_client ls smb://test-share
 simple_test_dataset
   smb://test-share/1a1f9fad-8589-413e-9602-5bbd66bfe675
 ```

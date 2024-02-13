@@ -3,9 +3,9 @@ version: '3.8'
 
 services:
   # use this as blocking dummy until testing environment initialization is complete
-  dtool_lookup_client:
-    hostname: dtool-lookup-client
-    image: jotelha/dtool-lookup-client:latest
+  dserver_client:
+    hostname: dserver-client
+    image: jotelha/dserver-client:latest
     depends_on:
       sambaserver:
         condition: service_healthy
