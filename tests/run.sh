@@ -40,6 +40,6 @@ echo "dserver log"
 docker-compose ${DOCKER_COMPOSE_OPTS} logs dserver
 
 echo "dtool lookup client log"
-docker-compose ${DOCKER_COMPOSE_OPTS} logs dtool_lookup_client
+docker-compose ${DOCKER_COMPOSE_OPTS} logs dserver_client
 
 bash tests/init.sh
