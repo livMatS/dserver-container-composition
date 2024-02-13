@@ -19,18 +19,18 @@ RETRIEVE_MONGO_DB=dtool_info
 RETRIEVE_MONGO_COLLECTION=datasets
 
 # direct mongo plugin
-MONGO_URI=mongodb://mongodb:27017/
-MONGO_DB=dtool_info
-MONGO_COLLECTION=metadata
-ALLOW_DIRECT_QUERY=True
+DSERVER_MONGO_URI=mongodb://mongodb:27017/
+DSERVER_MONGO_DB=dtool_info
+DSERVER_MONGO_COLLECTION=metadata
+DSERVER_ALLOW_DIRECT_QUERY=True
 # ATTENTION: ALLOW_DIRECT_AGGREGATION=True is a security risk
-ALLOW_DIRECT_AGGREGATION=True
+DSERVER_ALLOW_DIRECT_AGGREGATION=True
 
 # dependency graph plugin
 DSERVER_ENABLE_DEPENDENCY_VIEW=True
 DSERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
 
-# notifcation plugin
+# notification plugin
 DSERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
 DSERVER_NOTIFY_ALLOW_ACCESS_FROM="0.0.0.0/0"
 

@@ -21,6 +21,12 @@ fi
 mc mb s3server/test-bucket
 # non-zero exit code might just mean the bucket exists already
 
+# set public accessibility on bucket
+mc anonymous set public s3server/test-bucket;
+
+# set quota on bucket
+mc quota set s3server/test-bucket --size 1GB
+
 # create event notifications: elasticsearch, WIP
 # mc event add s3server/test-bucket arn:dserver:es:::localhost/notify/all --events "put"
 
