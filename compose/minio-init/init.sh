@@ -16,10 +16,8 @@ fi
 # assign privileges to user
 echo "mc admin policy attach s3server readwrite --user=testuser_access_key"
 mc admin policy attach s3server readwrite --user=testuser_access_key
-ret=$?
-if [ $ret -ne 0 ]; then
-    exit $ret
-fi
+# non-zero exit code might just mean the specified policy change is already in effect.
+
 # create bucket
 echo "mc mb s3server/test-bucket"
 mc mb s3server/test-bucket
