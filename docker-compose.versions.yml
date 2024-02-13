@@ -9,8 +9,8 @@ services:
   postgres:
     image: postgres:14.1
 
-  dtool_lookup_server:
-    image: jotelha/dtool-lookup-server:0.9.0
+  dserver:
+    image: jotelha/dserver:0.9.0
 
   token_generator_ldap:
     image: jotelha/dtool-token-generator-ldap:0.2.2

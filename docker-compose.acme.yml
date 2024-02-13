@@ -3,7 +3,7 @@ version: '3.8'
 
 services:
 
-  dtool_lookup_server:
+  dserver:
     depends_on:
       acme:
         condition: service_completed_successfully

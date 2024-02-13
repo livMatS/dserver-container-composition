@@ -14,7 +14,7 @@ server {
     ssl_certificate_key  ${NGINX_SSL_KEY};
 
     location /lookup/ {
-        proxy_pass https://dtool-lookup-server:5000/;
+        proxy_pass https://dserver:5000/;
     }
 
     location /token {

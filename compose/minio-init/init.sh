@@ -22,10 +22,10 @@ mc mb s3server/test-bucket
 # non-zero exit code might just mean the bucket exists already
 
 # create event notifications: elasticsearch, WIP
-# mc event add s3server/test-bucket arn:dtool-lookup-server:es:::localhost/notify/all --events "put"
+# mc event add s3server/test-bucket arn:dserver:es:::localhost/notify/all --events "put"
 
 # create event notifications: webhook
-mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://dtool-lookup-server:5000/webhook/notify"
+mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://dserver:5000/webhook/notify"
 mc admin service restart s3server
 mc event add s3server/test-bucket arn:minio:sqs::testbucket:webhook --event put
 

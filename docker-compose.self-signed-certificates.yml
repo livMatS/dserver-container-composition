@@ -3,26 +3,26 @@ version: '3.8'
 
 services:
 
-  dtool_lookup_server:
+  dserver:
     depends_on:
-      omgwtfssl-dtool-lookup-server:
+      omgwtfssl-dserver:
         condition: service_started
 
-  omgwtfssl-dtool-lookup-server:
+  omgwtfssl-dserver:
     image: paulczar/omgwtfssl:latest
     restart: "no"
     depends_on:
       volume_init:
         condition: service_completed_successfully
     environment:
-      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_SUBJECT=${ADMINMAIL:-admin@dserver.provider}
       - CA_KEY=ca-key.pem
       - CA_CERT=CAs/ca.pem
-      - SSL_SUBJECT=dtool-lookup-server
-      - SSL_DNS=${HOSTNAME:-localhost},dtool-lookup-server
-      - SSL_KEY=dtool-lookup-server.key
-      - SSL_CSR=dtool-lookup-server.csr
-      - SSL_CERT=dtool-lookup-server.crt
+      - SSL_SUBJECT=dserver
+      - SSL_DNS=${HOSTNAME:-localhost},dserver
+      - SSL_KEY=dserver.key
+      - SSL_CSR=dserver.csr
+      - SSL_CERT=dserver.crt
     volumes:
       - cert_data:/certs
 
@@ -30,10 +30,10 @@ services:
     image: paulczar/omgwtfssl:latest
     restart: "no"
     depends_on:
-      omgwtfssl-dtool-lookup-server:
+      omgwtfssl-dserver:
         condition: service_completed_successfully
     environment:
-      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_SUBJECT=${ADMINMAIL:-admin@dserver.provider}
       - CA_KEY=ca-key.pem
       - CA_CERT=CAs/ca.pem
       - SSL_SUBJECT=token-generator-ldap
@@ -48,10 +48,10 @@ services:
     image: paulczar/omgwtfssl:latest
     restart: "no"
     depends_on:
-      omgwtfssl-dtool-lookup-server:
+      omgwtfssl-dserver:
         condition: service_completed_successfully
     environment:
-      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_SUBJECT=${ADMINMAIL:-admin@dserver.provider}
       - CA_KEY=ca-key.pem
       - CA_CERT=CAs/ca.pem
       - SSL_SUBJECT=dtool-lookup-webapp
@@ -64,5 +64,5 @@ services:
 
   web:
     environment:
-      - NGINX_SSL_CERT=/certs/dtool-lookup-server.crt
-      - NGINX_SSL_KEY=/certs/dtool-lookup-server.key
+      - NGINX_SSL_CERT=/certs/dserver.crt
+      - NGINX_SSL_KEY=/certs/dserver.key

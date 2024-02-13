@@ -1,4 +1,8 @@
-# Changelog for *dtool-lookup-server-container-composition*
+# Changelog for *dserver-container-composition*
+
+## untagged
+
+- MAINT: rebrand from dtool-lookup-server to dserver
 
 ## 0.12.0
 

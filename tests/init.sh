@@ -5,6 +5,6 @@
 source env.testing.rc
 
 echo "explicitly re-evoke dataset indexing"
-docker compose ${DOCKER_COMPOSE_OPTS} exec -T dtool_lookup_server /refresh_index
+docker compose ${DOCKER_COMPOSE_OPTS} exec -T dserver /refresh_index
 echo "dtool query '{}'"
 docker compose ${DOCKER_COMPOSE_OPTS} run dtool_lookup_client query '{}'

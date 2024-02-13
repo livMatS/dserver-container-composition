@@ -1,6 +1,6 @@
-# dtool-lookup-server-container-composition
+# dserver-container-composition
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dtool-lookup-server-container-composition/test.yml?branch=master)](https://github.com/livMatS/dtool-lookup-server-container-composition/actions?query=workflow%3Atest)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dserver-container-composition/test.yml?branch=master)](https://github.com/livMatS/dserver-container-composition/actions?query=workflow%3Atest)
 
 Copyright 2020, 2021 IMTEK Simulation, University of Freiburg, 2022 livMatS
 
@@ -11,7 +11,7 @@ Author: Johannes Hoermann, johannes.hoermann@imtek.uni-freiburg.de
 This container composition provides a working dtool lookp server ecosystem. It serves as testing framework
 and template for provision. Components are
 
-* `livMatS/dtool-lookup-server` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-lookup-server), [on github](https://github.com/livMatS/dtool-lookup-server-container-image)
+* `livMatS/dserver` [on dockerhub](https://hub.docker.com/r/jotelha/dserver), [on github](https://github.com/livMatS/dserver-container-image)
 * `livMatS/dtool-lookup-client` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-lookup-client), [on github](https://github.com/livMatS/dtool-lookup-client-container-image)
 * `livMatS/dtool-token-generator-ldap`[on dockerhub](https://hub.docker.com/r/jotelha/dtool-token-generator-ldap), [on github](https://github.com/livMatS/dtool-token-generator-ldap-container-image)
 * `livMatS/dtool-config-generator` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-config-generator), [on github](https://github.com/livMatS/dtool-config-generator-container-image)
@@ -162,7 +162,7 @@ On launch, a test dataset is placed on the smb share. It might be necessary to m
 register this testing dataset after the first launch, i.e.
 
 ```bash
-docker compose ${DOCKER_COMPOSE_OPTS} exec -it dtool_lookup_server /refresh_index
+docker compose ${DOCKER_COMPOSE_OPTS} exec -it dserver /refresh_index
 ```
 
 After pod up and images available, relaunch interactive session for manual
@@ -239,11 +239,11 @@ from within this repository. `$GITHUB_TOKEN` must hold a valid
 [access token](https://github.com/settings/tokens). The user must be member of
 the `docker` group. The `--bind` option avoids quirky permission errors by
 running the test in the current directory. This will however result in the
-local creation of two subdirectories `dtool-lookup-server-container-composition`
+local creation of two subdirectories `dserver-container-composition`
 and `workflow` during testing, which may be removed with
 
 ```bash
-rm -rf dtool-lookup-server-container-composition
+rm -rf dserver-container-composition
 sudo rm -rf workflow
 ```
 
