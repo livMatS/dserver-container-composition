@@ -2,3 +2,4 @@ docker-compose.external-envs.yml
 keys/*
 .env
 mailu/*
+.idea

@@ -22,9 +22,9 @@ services:
   # assign valid hostnames without undersore, see
   # * https://github.com/minio/minio/issues/13025
   # * https://github.com/docker/compose/issues/472
-  dtool_lookup_server:
-    hostname: dtool-lookup-server
-    image: jotelha/dtool-lookup-server:latest
+  dserver:
+    hostname: dserver
+    image: jotelha/dserver:latest
     restart: always
     depends_on:
       mongodb:
@@ -47,7 +47,7 @@ services:
         target: /certs
         read_only: true
       - type: bind
-        source: ./keys/dtool_lookup_server
+        source: ./keys/dserver
         target: /run/secrets
         read_only: true
 
@@ -74,7 +74,7 @@ services:
     image: jotelha/dtool-lookup-webapp
     restart: always
     depends_on:
-      dtool_lookup_server:
+      dserver:
         condition: service_started
     volumes:
       - type: bind
@@ -121,7 +121,7 @@ services:
         target: /certs
         read_only: true
     depends_on:
-      dtool_lookup_server:
+      dserver:
         condition: service_started
       dtool_lookup_webapp:
         condition: service_started

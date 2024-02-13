@@ -7,7 +7,7 @@ services:
     image: paulczar/omgwtfssl:latest
     restart: "no"
     environment:
-      - CA_SUBJECT=${ADMINMAIL:-admin@dtool-lookup-server.provider}
+      - CA_SUBJECT=${ADMINMAIL:-admin@dserver.provider}
       - CA_KEY=ca-key.pem
       - CA_CERT=CAs/ca.pem
       - SSL_SUBJECT=dtool-config-generator
@@ -16,7 +16,7 @@ services:
       - SSL_CSR=dtool-config-generator.csr
       - SSL_CERT=dtool-config-generator.crt
     depends_on:
-      omgwtfssl-dtool-lookup-server:
+      omgwtfssl-dserver:
         condition: service_completed_successfully
     volumes:
       - cert_data:/certs

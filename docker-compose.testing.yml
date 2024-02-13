@@ -16,7 +16,7 @@ services:
       testing_env_init:
         condition: service_completed_successfully
 
-  dtool_lookup_server:
+  dserver:
     depends_on:
       ldap:
         condition: service_started
@@ -64,7 +64,7 @@ services:
         target: /certs
         read_only: true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "mc", "ready", "local"]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -107,7 +107,7 @@ services:
         condition: service_completed_successfully
       sambaserver:
         condition: service_healthy
-      dtool_lookup_server:
+      dserver:
         condition: service_started
     volumes:
       - type: bind

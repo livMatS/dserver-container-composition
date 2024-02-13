@@ -113,7 +113,7 @@ WEB_ADMIN=/admin
 WEB_WEBMAIL=/webmail
 
 # Website name
-SITENAME=dtool-lookup-server
+SITENAME=dserver
 
 # Linked Website URL
 WEBSITE=https://${DOMAIN}

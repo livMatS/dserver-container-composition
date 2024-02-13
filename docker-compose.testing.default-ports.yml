@@ -2,7 +2,7 @@
 version: '3.8'
 
 services:
-  dtool_lookup_server:
+  dserver:
     ports:
       - "5000:5000"
 

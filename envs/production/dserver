@@ -1,6 +1,6 @@
 SCRIPT_NAME=/lookup
 
-FLASK_APP=dtool_lookup_server
+FLASK_APP=dserver
 DUMP_HTTP_REQUESTS=true
 LOGLEVEL=debug
 
@@ -19,26 +19,26 @@ RETRIEVE_MONGO_DB=dtool_info
 RETRIEVE_MONGO_COLLECTION=datasets
 
 # direct mongo plugin
-MONGO_URI=mongodb://mongodb:27017/
-MONGO_DB=dtool_info
-MONGO_COLLECTION=metadata
-
-DTOOL_LOOKUP_SERVER_QUERY_DICT_VALID_KEYS=["free_text","creator_usernames","base_uris","uuids","tags","query"]
-DTOOL_LOOKUP_SERVER_ALLOW_DIRECT_AGGREGATION=False
+DSERVER_MONGO_URI=mongodb://mongodb:27017/
+DSERVER_MONGO_DB=dtool_info
+DSERVER_MONGO_COLLECTION=metadata
+DSERVER_ALLOW_DIRECT_QUERY=True
+# ATTENTION: ALLOW_DIRECT_AGGREGATION=True is a security risk
+DSERVER_ALLOW_DIRECT_AGGREGATION=True
 
 # dependency graph plugin
-DTOOL_LOOKUP_SERVER_ENABLE_DEPENDENCY_VIEW=True
-DTOOL_LOOKUP_SERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
+DSERVER_ENABLE_DEPENDENCY_VIEW=True
+DSERVER_DEPENDENCY_KEYS=["readme.derived_from.uuid","annotations.source_dataset_uuid"]
 
-# notifcation plugin
-DTOOL_LOOKUP_SERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
-DTOOL_LOOKUP_SERVER_NOTIFY_ALLOW_ACCESS_FROM="0.0.0.0/0"
+# notification plugin
+DSERVER_NOTIFY_BUCKET_TO_BASE_URI={"test-bucket": "s3://test-bucket"}
+DSERVER_NOTIFY_ALLOW_ACCESS_FROM="0.0.0.0/0"
 
 JWT_PUBLIC_KEY_FILE=/run/secrets/jwt_key.pub
 JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
 
-SSL_CERT_FILE=/certs/dtool-lookup-server.crt
-SSL_KEY_FILE=/certs/dtool-lookup-server.key
+SSL_CERT_FILE=/certs/dserver.crt
+SSL_KEY_FILE=/certs/dserver.key
 
 API_SPEC_OPTIONS='{
         "x-internal-id": "2",
@@ -46,7 +46,7 @@ API_SPEC_OPTIONS='{
         "servers": [
           {
            "url": "https://demo.dtool.dev/lookup",
-           "description": "dtool-lookup-server demo instance"
+           "description": "dserver demo instance"
           }
         ],
         "components": {

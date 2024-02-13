@@ -10,9 +10,9 @@ services:
     env_file:
       - ./envs/production/postgres
 
-  dtool_lookup_server:
+  dserver:
     env_file:
-      - ./envs/production/dtool_lookup_server
+      - ./envs/production/dserver
 
   token_generator_ldap:
     env_file:

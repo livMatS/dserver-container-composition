@@ -36,8 +36,8 @@ docker volume ls
 echo "docker images"
 docker-compose ${DOCKER_COMPOSE_OPTS} images
 
-echo "dtool lookup server log"
-docker-compose ${DOCKER_COMPOSE_OPTS} logs dtool_lookup_server
+echo "dserver log"
+docker-compose ${DOCKER_COMPOSE_OPTS} logs dserver
 
 echo "dtool lookup client log"
 docker-compose ${DOCKER_COMPOSE_OPTS} logs dtool_lookup_client

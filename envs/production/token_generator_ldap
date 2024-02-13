@@ -6,5 +6,5 @@ JWT_PRIVATE_KEY_FILE=/run/secrets/jwt_key
 
 JWT_ACCESS_TOKEN_EXPIRES=3600
 
-SSL_CERT_FILE=/certs/dtool-lookup-server.crt
-SSL_KEY_FILE=/certs/dtool-lookup-server.key
+SSL_CERT_FILE=/certs/dserver.crt
+SSL_KEY_FILE=/certs/dserver.key

@@ -1,4 +1,22 @@
-# Changelog for *dtool-lookup-server-container-composition*
+# Changelog for *dserver-container-composition*
+
+## untagged
+
+- MAINT: rebrand from dtool-lookup-server to dserver
+
+## 0.12.0
+
+- DEP: dtool-lookup-server-container-image to 0.9.0
+
+## 0.11.2
+
+- MAINT: /mongo routes actually working
+
+## 0.11.1
+
+- MAINT: Allow direct mongo aggregation per default
+
+## 0.11.0
 
 - DEP: dtool-lookup-server-container-image to 0.8.0
 

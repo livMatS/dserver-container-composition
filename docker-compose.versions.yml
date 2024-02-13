@@ -4,13 +4,13 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo:5.0.5
+    image: mongo:latest
 
   postgres:
-    image: postgres:14.1
+    image: postgres:latest
 
-  dtool_lookup_server:
-    image: jotelha/dtool-lookup-server:latest
+  dserver:
+    image: jotelha/dserver:latest
 
   token_generator_ldap:
     image: jotelha/dtool-token-generator-ldap:0.2.2
