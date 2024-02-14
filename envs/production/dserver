@@ -1,4 +1,4 @@
-# SCRIPT_NAME=/lookup
+SCRIPT_NAME=/lookup
 
 FLASK_APP=dserver
 DUMP_HTTP_REQUESTS=true
