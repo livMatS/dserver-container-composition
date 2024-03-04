@@ -17,3 +17,7 @@ services:
   token_generator_ldap:
     env_file:
       - ./envs/production/token_generator_ldap
+
+  dtool_lookup_webapp:
+    env_file:
+      - ./envs/production/dtool_lookup_webapp
