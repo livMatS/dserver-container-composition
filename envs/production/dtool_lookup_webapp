@@ -1,8 +1,9 @@
 VUE_APP_DTOOL_LOOKUP_SERVER_URL="https://my.domain.placeholder/lookup"
 VUE_APP_DTOOL_LOOKUP_SERVER_TOKEN_GENERATOR_URL="https://my.domain.placeholder/token"
 
-VUE_APP_WELCOME_TITLE="dserver"
-VUE_APP_WELCOME_MESSAGE="Welcome to my.domain.placeholder, the dserver demonstrator."
+VUE_APP_FIRST_CONTAINER_TITLE=Log in
+VUE_APP_SECOND_CONTAINER_TITLE=dserver
+VUE_APP_SECOND_CONTAINER_MESSAGE="Welcome to my.domain.placeholder, the dserver demonstrator."
 VUE_APP_THIRD_CONTAINER_HEADING="Access"
 VUE_APP_THIRD_CONTAINER_MESSAGE="To log in, use default credentials:<br>username - <strong>testuser</strong><br>password - <strong>test_password</strong>."
 VUE_APP_FOURTH_CONTAINER_HEADING="Docs"
