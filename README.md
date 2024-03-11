@@ -8,7 +8,7 @@ Author: Johannes Hoermann, johannes.hoermann@imtek.uni-freiburg.de
 
 ## Introduction
 
-This container composition provides a working dtool lookp server ecosystem. It serves as testing framework
+This container composition provides a working dtool lookup server ecosystem. It serves as testing framework
 and template for provision. Components are
 
 * `livMatS/dserver` [on dockerhub](https://hub.docker.com/r/jotelha/dserver), [on github](https://github.com/livMatS/dserver-container-image)
