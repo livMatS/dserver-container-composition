@@ -1,6 +1,6 @@
 # dserver-container-composition
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dserver-container-composition/test.yml?branch=master)](https://github.com/livMatS/dserver-container-composition/actions?query=workflow%3Atest)
+[![dtool](data/icons/22x22/dtool_logo.png)](https://dtoolcore.readthedocs.io) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/livMatS/dserver-container-composition/test.yml?branch=master)](https://github.com/livMatS/dserver-container-composition/actions?query=workflow%3Atest)
 
 Copyright 2020, 2021 IMTEK Simulation, University of Freiburg, 2022 livMatS
 
