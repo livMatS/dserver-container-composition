@@ -28,16 +28,32 @@ and template for provision. Components are
 Run
 
 ```bash
+bash maintenance/replace_hostname.sh localhost
+```
+
+from within repository root to replace the placeholder `my.domain.placeholder`
+with `localhost` wherever it occurs. Next, run
+
+```bash
 cd keys && bash ./generate_jwt_key.sh
 ```
 
-to generate tls/ssl and jwt keys, then source the preconfigured env file
+to generate tls/ssl and jwt keys, then source the hidden file
+
+```
+source .env
+```
+
+to set a few general environment variables which are referenced across the 
+YAML compose files. Importantly, this will set `$HOSTNAME` to `localhost`.
+
+Afterwards, source the preconfigured env file
 
 ```bash
 source env.testing.rc
 ```
 
-and run with
+and to set `$DOCKER_COMPOSE_OPTS` to a stack of YAML compose files and run with
 
 ```bash
 docker compose ${DOCKER_COMPOSE_OPTS} up -d
@@ -50,7 +66,8 @@ If the composition runs on `localhost`, then
 
 * `/lookup` routes expose the lookup server
 * `/token` exposes the token generator
-* `/config` routes expose the config generator
+* `/config` routes might expose the config generator,
+  but not for the testing composition launched here
 * `/` directly exposes the lookup server webapp
 
 ## Composition-wide environment variables
