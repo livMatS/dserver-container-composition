@@ -8,4 +8,4 @@ VUE_APP_THIRD_CONTAINER_HEADING="Access"
 VUE_APP_THIRD_CONTAINER_MESSAGE="To log in, use default credentials:<br>username - <strong>testuser</strong><br>password - <strong>test_password</strong>."
 VUE_APP_FOURTH_CONTAINER_HEADING="Docs"
 VUE_APP_FOURTH_CONTAINER_INTRO="Please refer to the following resources for more information:"
-VUE_APP_FOURTH_CONTAINER_RESOURCES='[{"text": "dserver docs: livmats.github.io/dtool-lookup-server", "url": "https://livmats.github.io/dtool-lookup-server/"},{"text": "dtool docs: dtool.readthedocs.io", "url": "https://dtool.readthedocs.io/"},{"text": "OpenAPI: demo.dtool.dev/lookup/doc/swagger", "url": "https://my.domain.placeholder/lookup/doc/swagger"}]'
+VUE_APP_FOURTH_CONTAINER_RESOURCES='[{"text": "dtool-lookup-server docs: dtool-lookup-server.readthedocs.io", "url": "https://dtool-lookup-server.readthedocs.io"},{"text": "dtool docs: dtool.readthedocs.io", "url": "https://dtool.readthedocs.io"},{"text": "OpenAPI: demo.dtool.dev/lookup/doc/swagger", "url": "https://my.domain.placeholder/lookup/doc/swagger"}]'
