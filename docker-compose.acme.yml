@@ -21,7 +21,7 @@ services:
               --cert-file      /certs/acme.crt
               --key-file       /certs/acme.key
               --ca-file        /certs/CAs/acme-ca.pem
-              --fullchain-file /certs/CAs/acme-full-chain.pem
+              --fullchain-file /certs/acme-full-chain.pem
     depends_on:
       volume_init:
         condition: service_completed_successfully
@@ -37,4 +37,4 @@ services:
   web:
     environment:
       - NGINX_SSL_CERT=/certs/acme.crt
-      - NGINX_SSL_KEY=/certs/acme.key
+      - NGINX_SSL_KEY=/certs/acme-full-chain.key
