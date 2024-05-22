@@ -36,5 +36,5 @@ services:
 
   web:
     environment:
-      - NGINX_SSL_CERT=/certs/acme.crt
-      - NGINX_SSL_KEY=/certs/acme-full-chain.pem
+      - NGINX_SSL_CERT=/certs/acme-full-chain.pem
+      - NGINX_SSL_KEY=/certs/acme.key
