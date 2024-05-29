@@ -2,6 +2,7 @@
 
 ## untagged
 
+- MAINT: remove version fields from docker compose yaml files
 - MAINT: rebrand from dtool-lookup-server to dserver
 
 ## 0.12.0

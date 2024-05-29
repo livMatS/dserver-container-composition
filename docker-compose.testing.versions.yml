@@ -1,6 +1,4 @@
 ---
-version: '3.8'
-
 services:
   dserver_client:
     image: jotelha/dserver-client:latest
