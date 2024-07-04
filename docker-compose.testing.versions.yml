@@ -1,7 +1,7 @@
 ---
 services:
   dserver_client:
-    image: jotelha/dserver-client:latest
+    image: jotelha/dtool:latest
 
   ldap:
     image: bitnami/openldap:latest

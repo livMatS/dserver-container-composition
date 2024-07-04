@@ -2,8 +2,8 @@
 services:
   # use this as blocking dummy until testing environment initialization is complete
   dserver_client:
-    hostname: dserver-client
-    image: jotelha/dserver-client:latest
+    hostname: dtool
+    image: jotelha/dtool:latest
     depends_on:
       sambaserver:
         condition: service_healthy
