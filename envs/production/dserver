@@ -1,6 +1,6 @@
 SCRIPT_NAME=/lookup
 
-FLASK_APP=dserver
+FLASK_APP=dservercore
 DUMP_HTTP_REQUESTS=true
 LOGLEVEL=debug
 
