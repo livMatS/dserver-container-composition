@@ -186,13 +186,13 @@ After pod up and images available, relaunch interactive session for manual
 testing with
 
 ```bash
-docker compose ${DOCKER_COMPOSE_OPTS} run -it --entrypoint bash dserver_client
+docker compose ${DOCKER_COMPOSE_OPTS} run -it --entrypoint bash dtool
 ```
 
 or run dtool commands directly, i.e. via
 
 ```console
-$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dserver_client search 'Test'
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool search 'Test'
 [
   {
     "base_uri": "smb://test-share",
@@ -210,7 +210,7 @@ $ docker compose ${DOCKER_COMPOSE_OPTS} run -it dserver_client search 'Test'
 ```
 
 ```console
-$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dserver_client ls smb://test-share
+$ docker compose ${DOCKER_COMPOSE_OPTS} run -it dtool ls smb://test-share
 simple_test_dataset
   smb://test-share/1a1f9fad-8589-413e-9602-5bbd66bfe675
 ```
