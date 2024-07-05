@@ -35,8 +35,8 @@ mc quota set s3server/test-bucket --size 1GB
 # mc event add s3server/test-bucket arn:dserver:es:::localhost/notify/all --events "put"
 
 # create event notifications: webhook
-echo "mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://dserver:5000/webhook/notify""
-mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://dserver:5000/webhook/notify"
+echo "mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://web/lookup/webhook/notify""
+mc admin config set s3server/ notify_webhook:testbucket  endpoint="https://web/lookup/webhook/notify"
 echo "mc admin service restart s3server"
 mc admin service restart s3server
 echo "mc event add s3server/test-bucket arn:minio:sqs::testbucket:webhook --event put"
