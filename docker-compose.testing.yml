@@ -13,6 +13,12 @@ services:
         condition: service_completed_successfully
       testing_env_init:
         condition: service_completed_successfully
+    volumes:
+    - type: bind
+      source: ./volumes/config_dtool
+      target:  /root/.config/dtool
+      read_only: false
+
 
   dserver:
     depends_on:
@@ -116,6 +122,10 @@ services:
         source: ./volumes/test_datasets
         target: /datasets
         read_only: true
+      - type: bind
+        source: ./volumes/config_dtool
+        target: /root/.config/dtool
+        read_only: false
 
 secrets:
   minio_access_key:
