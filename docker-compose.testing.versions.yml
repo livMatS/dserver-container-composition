@@ -1,6 +1,6 @@
 ---
 services:
-  dserver_client:
+  dtool:
     image: jotelha/dtool:latest
 
   ldap:

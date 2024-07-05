@@ -1,7 +1,7 @@
 ---
 services:
   # use this as blocking dummy until testing environment initialization is complete
-  dserver_client:
+  dtool:
     hostname: dtool
     image: jotelha/dtool:latest
     depends_on:
