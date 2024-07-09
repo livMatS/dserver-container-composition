@@ -76,8 +76,12 @@ services:
         condition: service_started
     volumes:
       - type: bind
-        source: ./volumes/webapp/templates
+        source: ./volumes/webapp/nginx-templates
         target: /etc/nginx/templates
+        read_only: true
+      - type: bind
+        source: ./volumes/webapp/dtool-templates
+        target: /app/dtool-lookup-webapp/public/data/templates
         read_only: true
       - type: volume
         source: cert_data

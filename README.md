@@ -11,11 +11,11 @@ Author: Johannes Hoermann, johannes.hoermann@imtek.uni-freiburg.de
 This container composition provides a working dtool lookup server ecosystem. It serves as testing framework
 and template for provision. Components are
 
-* `livMatS/dserver` [on dockerhub](https://hub.docker.com/r/jotelha/dserver), [on github](https://github.com/livMatS/dserver-container-image)
-* `livMatS/dtool` [on dockerhub](https://hub.docker.com/r/jotelha/dtool), [on github](https://github.com/livMatS/dtool-container-image)
-* `livMatS/dtool-token-generator-ldap`[on dockerhub](https://hub.docker.com/r/jotelha/dtool-token-generator-ldap), [on github](https://github.com/livMatS/dtool-token-generator-ldap-container-image)
-* `livMatS/dtool-config-generator` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-config-generator), [on github](https://github.com/livMatS/dtool-config-generator-container-image)
-* [`livmats/dtool-lookup-webapp`](https://github.com/livmats/dtool-lookup-webapp), fork of [`jic-dtool/dtool-lookup-webapp`](https://github.com/jic-dtool/dtool-lookup-webapp)
+* `jotelha/dserver` [on dockerhub](https://hub.docker.com/r/jotelha/dserver), [on github](https://github.com/livMatS/dserver-container-image)
+* `jotelha/dtool` [on dockerhub](https://hub.docker.com/r/jotelha/dtool), [on github](https://github.com/livMatS/dtool-container-image)
+* `jotelha/dtool-token-generator-ldap`[on dockerhub](https://hub.docker.com/r/jotelha/dtool-token-generator-ldap), [on github](https://github.com/livMatS/dtool-token-generator-ldap-container-image)
+* `jotelha/dtool-config-generator` [on dockerhub](https://hub.docker.com/r/jotelha/dtool-config-generator), [on github](https://github.com/livMatS/dtool-config-generator-container-image)
+* [`jic-dtool/dtool-lookup-webapp`](https://github.com/jic-dtool/dtool-lookup-webapp)
 * MongoDB [on dockerhub](https://hub.docker.com/_/mongo)
 * Postgres [on dockerhub](https://hub.docker.com/_/postgres)
 * `bitnami/openldap` [on dockerhub](https://hub.docker.com/r/bitnami/openldap/)
